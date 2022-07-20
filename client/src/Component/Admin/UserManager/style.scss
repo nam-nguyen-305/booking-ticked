@@ -1,0 +1,29 @@
+@import "../../../style/variables";
+
+.user-manager {
+    &__table {
+        text-align: center;
+        border-spacing: 1;
+        border-collapse: collapse;
+        background: white;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        overflow: hidden;
+        width: 100%;
+        margin: 0 auto;
+        position: relative;
+
+        thead {
+            background-color: $primaryColor;
+            color: $whiteColor;
+        }
+    }
+    &__add {
+        float: right;
+
+        svg {
+            font-size: 2rem;
+            align-items: center;
+        }
+    }
+}

@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="mt-5 mb-5">
+    <h3 class="title-admin">Suất chiếu</h3>
+    <a  class="d-block mb-3 action-item" href="/me/stored/showtimes">Danh sách suất chiếu &#8594;</a>
+    <form method="POST" action="/showtimes/store">
+      <div class="form-group col-lg-6 " style="margin: 0 auto;">
+          <label for="day">Ngày</label>
+          <input type="text" class="form-control" id="day" name="day" />
+      </div>
+      <div class="form-group col-lg-6" style="margin: 0 auto;" > 
+          <label for="startAt">Giờ bắt đầu</label>
+          <input type="text" class="form-control" id="startAt" name="startAt"/>
+      </div>
+      <div class="form-group col-lg-6 " style="margin: 0 auto;">
+          <label for="endAt">Giờ kết thúc</label>
+          <input type="text" class="form-control" id="endAt" name="endAt" />
+      </div>
+      <div class="form-group col-lg-6 " style="margin: 0 auto;">
+          <label for="movieId">Chọn phim</label>
+          <select required class="form-control" id="movieId" name="movieId">
+            <option value="">--Chọn phim--</option>
+            {{#each movie}}
+            <option value="{{this._id}}">{{this.name}}</option>
+            {{/each}}
+          </select>
+      </div>
+      <div class="form-group col-lg-6 " style="margin: 0 auto;">
+          <label for="roomId">Chọn phòng</label>
+          <select required class="form-control" id="roomId" name="roomId">
+            <option value="">--Chọn phòng--</option>
+            {{#each room}}
+            <option value="{{this._id}}">{{this.name}}</option>
+            {{/each}}
+          </select>
+      </div>
+      <div class="form-group col-lg-6 mt-3 "style="margin: 0 auto;"> 
+        <button type="submit" class="btn btn-submit align-items-center col-lg-6">Thêm suất chiếu</button>
+      </div>
+    </form>
+  </div>
+</div>

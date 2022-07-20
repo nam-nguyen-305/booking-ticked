@@ -1,0 +1,30 @@
+@import "../../style/variables";
+
+.showtime-list {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    &_item {
+        color: #ffffff;
+        padding: 5px;
+        width: 85px;
+        background: #162f5f;
+        position: relative;
+        mask-position: center center;
+        -webkit-mask-position: center center;
+        text-align: center;
+        mask-image: url("../../../public/assets/img/movie-ticket.png");
+        -webkit-mask-image: url("../../../public/assets/img/movie-ticket.png");
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-size: 100% 100%;
+        mask-size: 100% 100%;
+        cursor: pointer;
+        -webkit-transition: all ease 0.3s;
+        transition: all ease 0.3s;
+        margin: 5px;
+        &:hover {
+            background-color: $secondaryColor;
+        }
+    }
+}

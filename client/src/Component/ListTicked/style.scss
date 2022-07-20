@@ -1,0 +1,36 @@
+@import "../../style/variables";
+
+.list-ticked {
+    margin-top: 140px;
+    table {
+        border-spacing: 1;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        width: 100%;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    &__head {
+        height: 6rem;
+        background-color: $primaryColor;
+        color: $whiteColor;
+        text-align: center;
+    }
+    &__item {
+        text-align: center;
+        font-size: 16px;
+        color: $textColor;
+        font-weight: 600;
+
+        td {
+            padding: 16px 0;
+        }
+
+        &:not(:last-child) {
+            border-bottom: $borderDefault;
+        }
+    }
+}

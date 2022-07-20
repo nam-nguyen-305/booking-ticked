@@ -1,0 +1,78 @@
+$Mobile: 464px;
+$Tablet: 768px;
+$Desktop: 1024px;
+
+@mixin paddingX($left, $right) {
+    padding-left: $left !important;
+    padding-right: $right !important;
+}
+@mixin paddingY($top, $bottom) {
+    padding-top: $top;
+    padding-bottom: $bottom;
+}
+@mixin marginX($left, $right) {
+    margin-left: $left !important;
+    margin-right: $right !important;
+}
+@mixin marginY($top, $bottom) {
+    margin-top: $top;
+    margin-bottom: $bottom;
+}
+
+@mixin transition($type, $time) {
+    -webkit-transitionn: $type, $time;
+    -moz-transitionn: $type, $time;
+    -o-transitionn: $type, $time;
+    transition: $type, $time;
+}
+
+@mixin boxShadow($shiftRight, $shiftDown, $spread, $blur, $color) {
+    -webkit-box-shadow: $shiftRight $shiftDown $spread $blur $color;
+    -moz-box-shadow: $shiftRight $shiftDown $spread $blur $color;
+    box-shadow: $shiftRight $shiftDown $spread $blur $color;
+}
+
+@mixin flex($flex-direction, $justify-content: unset, $align-items: unset) {
+    display: flex;
+    flex-direction: $flex-direction;
+    -webkit-flex-direction: $flex-direction;
+    -moz-flex-direction: $flex-direction;
+    -ms-flex-direction: $flex-direction;
+    -o-flex-direction: $flex-direction;
+
+    justify-content: $justify-content;
+    -webkit-justify-content: $justify-content;
+    -moz-justify-content: $justify-content;
+    -ms-justify-content: $justify-content;
+    -o-justify-content: $justify-content;
+
+    align-items: $align-items;
+    -webkit-align-items: $align-items;
+    -moz-align-items: $align-items;
+    -ms-align-items: $align-items;
+    -o-align-items: $align-items;
+}
+
+@mixin position($position, $top: unset, $left: unset, $right: unset, $bottom: unset) {
+    position: $position !important;
+    top: $top;
+    left: $left;
+    right: $right;
+    bottom: $bottom;
+}
+
+@mixin Responsive($Screen) {
+    @if $Screen==Mobile {
+        @media only screen and (max-width: $Mobile) {
+            @content;
+        }
+    } @else if $Screen==Tablet {
+        @media only screen and (max-width: $Tablet) {
+            @content;
+        }
+    } @else if $Screen==Desktop {
+        @media only screen and (max-width: $Desktop) {
+            @content;
+        }
+    }
+}

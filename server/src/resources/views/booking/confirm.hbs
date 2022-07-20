@@ -1,0 +1,447 @@
+<div class='container'>
+  <section class='booking mt-5 mb-5'>
+    <form method='POST' action='/booking/{{ticked._id}}?_method=PUT'>
+      <div class='row'>
+        <div class='col-md-8'>
+          <h3 class='breadcrumb pl-0 mb-4'>
+            Trang chủ > Đặt vé >
+            <span> {{ticked.movieName}}</span>
+          </h3>
+          <div class='booking_notice'>Theo quy định của cục điện ảnh,
+            phim này không dành cho khán giả dưới 18 tuổi.</div>
+          <div class='payment'>
+            <div class='payment_title d-flex'>
+              <img
+                src='https://www.betacinemas.vn/Assets/global/img/booking/ic-inforpayment.png'
+                alt=''
+              />
+              <h3>THÔNG TIN THANH TOÁN</h3>
+            </div>
+
+            <div class='payment_user d-flex mt-4'>
+              <div class='col-md-4 payment_user_info'>
+                <span class='font-weight-bold'>Họ và tên:</span>
+                <br />
+                <span>{{ticked.user}}</span>
+                <input
+                  type='hidden'
+                  class='form-control'
+                  id='user'
+                  name='user'
+                  value='{{ticked.user}}'
+                />
+              </div>
+              <div class='col-md-4 payment_user_info'>
+                <span class='font-weight-bold'>Số điện thoại:</span>
+                <br />
+                <span>0{{ticked.phone}}</span>
+                <input
+                  type='hidden'
+                  class='form-control'
+                  id='phone'
+                  name='phone'
+                  value='{{ticked.phone}}'
+                />
+
+              </div>
+              <div class='col-md-4 payment_user_info'>
+                <span class='font-weight-bold'>Email:</span>
+                <br />
+                <span>{{ticked.email}}</span>
+                <input
+                  type='hidden'
+                  class='form-control'
+                  id='email'
+                  name='email'
+                  value='{{ticked.email}}'
+                />
+              </div>
+            </div>
+            <div class='clearfix'></div>
+            <br />
+            <br />
+            <div class='payment_seat'>
+              <div class='row'>
+                <div
+                  class='col-md-6 payment_seat_type text-left font-weight-bold'
+                >Ghế thường</div>
+                <div
+                  class='col-md-3 payment_seat_quantity text-center'
+                >{{ticked.inputCount}} x50.000 VND</div>
+                <div class='col-md-3 payment_seat_total text-center'>=
+                  {{ticked.inputTotal}}
+                  VND</div>
+                <input
+                  type='hidden'
+                  class='form-control'
+                  id='inputCount'
+                  name='inputCount'
+                  value='{{ticked.inputCount}}'
+                />
+                <input
+                  type='hidden'
+                  class='form-control'
+                  id='inputTotal'
+                  name='inputTotal'
+                  value='{{ticked.inputTotal}}'
+                />
+
+              </div>
+              <hr class='mt-4' />
+            </div>
+            <div class='payment_title d-flex mb-4'>
+              <img
+                src='https://www.betacinemas.vn/Assets/global/img/booking/ic-combo.png'
+                alt=''
+              />
+              <h3>COMBO ƯU ĐÃI</h3>
+            </div>
+            <div class='payment_combo mb-3'>
+              <table style='width: 100%' class='text-center'>
+                <colgroup>
+                  <col style='width: 30%' />
+                  <col style='width: 40%' />
+                  <col style='width: 15%' />
+                </colgroup>
+                <thead>
+
+                  <tr>
+                    <th class='text-center'>Tên Combo</th>
+                    <th class='text-center'>Mô tả</th>
+                    <th class='text-center'>Số lượng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class='comboItem' id='combo1'>
+                    <td class='comboItem_title'>Beta Combo 69oz</td>
+                    <td class='comboItem_desc'>TIẾT KIÊM 10K !! Gồm: 1
+                      bắp 69oz + 1 nước có ga 700ml</td>
+                    <td
+                      class='comboItem_action text-center d-flex justify-content-center'
+                    >
+                      <input
+                        id='comboInput1'
+                        type='number'
+                        class='text-center comboItem_count mr-2'
+                        min='0'
+                        max='10'
+                        value='0'
+                      />
+                      <input
+                        type='hidden'
+                        id='comboValue1'
+                        value='60000'
+                      />
+                      <span
+                        class='comboItem_increase mr-2'
+                        onclick="increaseNumber('comboInput1','comboValue1')"
+                      >+</span>
+                      <span
+                        class='comboItem_decrease'
+                        onclick="decreaseNumber('comboInput1','comboValue1')"
+                      >-</span>
+                    </td>
+                  </tr>
+                  <tr class='comboItem' id='combo2'>
+                    <td class='comboItem_title'>Sweet Combo 69oz</td>
+                    <td class='comboItem_desc'>TIẾT KIÊM 10K !! Gồm: 1
+                      bắp 69oz + 2 nước có ga 700ml</td>
+                    <td
+                      class='comboItem_action text-center d-flex justify-content-center'
+                    >
+                      <input
+                        id='comboInput2'
+                        type='number'
+                        class='text-center comboItem_count mr-2'
+                        min='0'
+                        max='10'
+                        value='0'
+                      />
+                      <input
+                        type='hidden'
+                        id='comboValue2'
+                        value='80000'
+                      />
+                      <span
+                        class='comboItem_increase mr-2'
+                        onclick="increaseNumber('comboInput2','comboValue2')"
+                      >+</span>
+                      <span
+                        class='comboItem_decrease'
+                        onclick="decreaseNumber('comboInput2','comboValue2')"
+                      >-</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <hr class='mt-4' />
+            </div>
+
+            <hr class='mt-4' />
+            <div class='payment_lastTotal'>
+              <div class='row'>
+                <div class='col-6'></div>
+                <div class='col-lg-3 quantiy'>Tổng tiền:</div>
+                <div
+                  class='col-lg-3 lastTotal'
+                  id='lastTotal'
+                >{{ticked.inputTotal}} VND</div>
+              </div>
+            </div>
+            <div class='payment_title d-flex mb-4'>
+              <img
+                src='https://www.betacinemas.vn/Assets/global/img/booking/ic-payment.png'
+                alt=''
+              />
+              <h3>PHƯƠNG THỨC THANH TOÁN</h3>
+            </div>
+            <div class='payment_type'>
+              <h2 class='payment_option-title mt-2'>Chọn thẻ thanh
+                toán</h2>
+              <div class='row'>
+                <div class='col-md-3 payment_option'>
+                  <input
+                    type='radio'
+                    id='card1'
+                    name='radio-group-card'
+                    value='VN'
+                    checked
+                  />
+                  <label for='card1'>
+                    <img
+                      src='https://www.betacinemas.vn/Assets/global/img/booking/ic-card-vn.png'
+                      alt=''
+                    />
+                    <span>Thẻ nội địa</span>
+                  </label>
+                </div>
+                <div class='col-md-3 payment_option'>
+                  <input
+                    type='radio'
+                    id='card2'
+                    name='radio-group-card'
+                    value='W'
+                  />
+                  <label for='card2'>
+                    <img
+                      src='https://www.betacinemas.vn/Assets/global/img/booking/ic-card-gb.png'
+                      alt=''
+                    />
+                    <span>Thẻ quốc tế</span>
+                  </label>
+                </div>
+                <div class='col-md-3 payment_option'>
+                  <input
+                    type='radio'
+                    id='card3'
+                    name='radio-group-card'
+                    value='shoppee'
+                  />
+                  <label for='card3'>
+                    <img
+                      src='https://www.betacinemas.vn/Assets/global/img/booking/airpay.png'
+                      alt=''
+                    />
+                    <span>Ví Shoppee</span>
+                  </label>
+                </div>
+                <div class='col-md-3 payment_option'>
+                  <input
+                    type='radio'
+                    id='card4'
+                    name='radio-group-card'
+                    value='momo'
+                  />
+                  <label for='card4'>
+                    <img
+                      src='https://www.betacinemas.vn/Assets/global/img/booking/momo.ico'
+                      alt=''
+                    />
+                    <span>Ví Momo</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class='col-md-4 booking_cf d-flex flex-wrap'>
+          <div class='col-md-12 d-flex'>
+            <div class='col-md-6'>
+              <img src={{ticked.img}} alt='' />
+              <input
+                type='hidden'
+                class='form-control'
+                id='img'
+                name='img'
+                value='{{ticked.img}}'
+              />
+
+            </div>
+            <div class='col-md-6'>
+              <h3 class='booking_name mb-2'> {{ticked.movieName}}</h3>
+              <h4>2D Phụ đề</h4>
+              <input
+                type='hidden'
+                class='form-control'
+                id='movieName'
+                name='movieName'
+                value='{{ticked.movieName}}'
+              />
+
+            </div>
+          </div>
+          <div class='col-md-12 mt-3'>
+            <div class='col-md-12 mt-2 d-flex'>
+              <div class='col-md-6'>
+                <i class='fas fa-tags'></i>
+                &nbsp; Thể loại
+              </div>
+              <div class='col-md-6 booking_info'>
+                {{ticked.category}}
+                <input
+                  type='hidden'
+                  class='form-control'
+                  id='category'
+                  name='category'
+                  value='{{ticked.category}}'
+                />
+
+              </div>
+            </div>
+            <div class='col-md-12 mt-2 d-flex'>
+              <div class='col-md-6'>
+                <i class='fas fa-clock'></i>
+                &nbsp; Thời lượng
+              </div>
+              <div class='col-md-6 booking_info'>
+                {{ticked.time}}
+                phút
+                <input
+                  type='hidden'
+                  class='form-control'
+                  id='time'
+                  name='time'
+                  value='{{ticked.time}}'
+                />
+
+              </div>
+            </div>
+          </div>
+          <div class='col-md-12 mt-3'>
+            <hr />
+            <div class='col-md-12 mt-2 d-flex'>
+              <div class='col-md-6'>
+                <i class='fas fa-university'></i>
+                &nbsp; Rạp chiếu
+              </div>
+              <div class='col-md-6 booking_info'>
+                Beta Mỹ Đình
+              </div>
+            </div>
+            <div class='col-md-12 mt-2 d-flex'>
+              <div class='col-md-6'>
+                <i class='fas fa-calendar-alt'></i>
+                &nbsp; Ngày chiếu
+              </div>
+              <div class='col-md-6 booking_info'>
+                {{ticked.date}}
+                <input
+                  type='hidden'
+                  class='form-control'
+                  id='date'
+                  name='date'
+                  value='{{ticked.date}}'
+                />
+
+              </div>
+            </div>
+            <div class='col-md-12 mt-2 d-flex'>
+              <div class='col-md-6'>
+                <i class='fas fa-clock'></i>
+                &nbsp; Giờ chiếu
+              </div>
+              <div class='col-md-6 booking_info'>
+                {{ticked.startAt}}
+                <input
+                  type='hidden'
+                  class='form-control'
+                  id='startAt'
+                  name='startAt'
+                  value='{{ticked.startAt}}'
+                />
+
+              </div>
+            </div>
+            <div class='col-md-12 mt-2 d-flex'>
+              <div class='col-md-6'>
+                <i class='fas fa-tv'></i>
+                &nbsp; Phòng chiếu
+              </div>
+              <div class='col-md-6 booking_info'>
+                {{ticked.room}}
+                <input
+                  type='hidden'
+                  class='form-control'
+                  id='room'
+                  name='room'
+                  value='{{ticked.room}}'
+                />
+
+              </div>
+            </div>
+            <div class='col-md-12 mt-2 d-flex'>
+              <div class='col-md-6'>
+                <i class='fas fa-cubes'></i>
+                &nbsp; Ghế ngồi
+              </div>
+              <div id='seatAdd' class='col-md-6 booking_info'>
+                {{ticked.inputSeatAdd}}
+                <input
+                  type='hidden'
+                  class='form-control'
+                  id='inputSeatAdd'
+                  name='inputSeatAdd'
+                  value='{{ticked.inputSeatAdd}}'
+                />
+
+              </div>
+            </div>
+            <input
+              type='hidden'
+              class='form-control'
+              id='status'
+              name='status'
+              value='2'
+            />
+            <button type='submit' class='btn btn-ticket mt-3'>Thanh
+              toán</button>
+
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+</div>
+<script>
+  var total = document.getElementById('inputTotal'); var lastTotal =
+  document.getElementById('lastTotal'); const decreaseNumber =
+  (incdec, value) => { var itemInput = document.getElementById(incdec)
+  var itemValue = document.getElementById(value) let itemNum =
+  itemInput.value; if (itemNum == 0) { itemInput.value =0 } else { let
+  x = parseInt(total.value.toString().replace('.','')) -
+  parseInt(itemValue.value); let newX = x.toLocaleString('it-IT',
+  {style : 'currency', currency : 'VND'}); lastTotal.innerText = newX;
+  total.value = x; itemInput.value = parseInt(itemNum) - 1; } } const
+  increaseNumber = (incdec, value) => { var itemInput =
+  document.getElementById(incdec) var itemValue =
+  document.getElementById(value) let itemNum = itemInput.value; if
+  (itemNum >=10) { itemNum =10; } else { itemInput.value =
+  (parseInt(itemNum) +1).toString(); console.log(itemInput.value)
+  console.log(itemValue.value) console.log(total.value) let x =
+  parseInt(total.value.toString().replace('.','')) +
+  parseInt(itemValue.value); let newX = x.toLocaleString('it-IT',
+  {style : 'currency', currency : 'VND'}); lastTotal.innerText = newX;
+  total.value = x; } }
+
+</script>

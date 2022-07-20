@@ -1,0 +1,44 @@
+@import "../../style/variables";
+
+.info {
+    padding-top: 5rem;
+    margin: 150px auto 0;
+    width: 700px;
+    background: #0f0c29; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2a2a35, #07023a, #0f0c29); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2a2a35, #07023a, #0f0c29);
+    padding: 30px;
+    border-radius: 14px;
+    font-size: 20px;
+    &__img {
+        height: 10rem;
+    }
+
+    &__edit-btn {
+        font-size: 20px;
+        float: right;
+        border: unset;
+        transition: all 0.3s;
+        color: #9aace5;
+        &:hover {
+            color: #eef0f5;
+        }
+    }
+
+    &__main {
+        margin-top: 3rem;
+    }
+
+    &__sub {
+        margin-right: 2rem;
+        margin-bottom: 20px;
+        font-weight: bold;
+        color: #9aace5;
+    }
+    &__value {
+        margin-bottom: 20px;
+    }
+    .form-title {
+        color: #ccc;
+    }
+}

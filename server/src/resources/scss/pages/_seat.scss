@@ -1,0 +1,122 @@
+.booking {
+    &_notice {
+        color: red;
+        background-color: rgb(252, 185, 82);
+        text-align: center;
+        margin-bottom: 10px;
+        padding: 10px;
+    }
+    &_seat-status {
+        display: flex;
+    }
+    &_seat-main{
+        .pay {
+            &_item {
+                font-size: 17px;
+            }
+        }
+    }
+    &_name {
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 1.5;
+        color: $blue-primary-color;
+    }
+    h4 {
+        font-size: 17px;
+        font-weight: 600;
+
+    }
+    &_info {
+        font-weight: 600;
+    }
+    hr {
+        border-top: 2px dashed rgb(34, 32, 32);
+    }
+    &_cf,
+    &_form {
+        font-size: 14px;
+        margin-top: 20px;
+        height: fit-content;
+    }
+    .payment {
+        &_title {
+            height: 35px;
+            img {
+                height: 100%;
+            }
+            h3 {
+                font-size: 20px;
+                font-weight: 500;
+                line-height: 35px;
+                height: 35px;
+                float: left;
+                margin-left: 12px;
+                color: #494c62;
+            }
+        }
+        &_seat_total{
+            color: rgb(253,40,2);
+        }
+        &_option-title {
+            font-size: 18px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            font-weight: bold;
+        }
+        &_option {
+            label {
+                img {
+                    width: 40px;
+                    float: left;
+                    margin-left: 5px;
+                    margin-right: 10px;
+                }
+            }
+        }
+        &_combo {
+            .comboItem {
+                border-top: 1px solid #ccc;
+
+                td {
+                    @include paddingY(20px, 20px);
+                }
+                &_count {
+                    width: 20%;
+                    
+                }
+                span {
+                    width: 28px;
+                    height: 28px;
+                    border: none;
+                    cursor: pointer;
+                }
+                &_increase  {
+                    background-color: $blue-primary-color;
+                    color: white;
+                }
+                &_decrease {
+                    background-color: rgb(223, 223, 223);
+                    color: black;
+                }
+
+            }
+        }
+        &_lastTotal {
+            .quantiy {
+                text-align: right;
+                font-weight: 500;
+                color: #494c62;
+                font-size: 18px;
+            }
+            .lastTotal {
+                color: red;
+                font-size: 20px;
+                font-weight: 400;
+                text-align: right;
+
+            }
+        }
+    }
+}

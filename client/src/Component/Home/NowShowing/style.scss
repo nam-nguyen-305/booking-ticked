@@ -1,0 +1,64 @@
+@import "../../../style/variables";
+
+.movie-list {
+    padding-top: 120px;
+    background: #0f0c29; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+        to right,
+        #24243e,
+        #302b63,
+        #0f0c29
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    &__main {
+        padding-bottom: 120px;
+    }
+
+    &__header {
+        margin-bottom: 30px;
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        padding-bottom: 10px;
+        position: relative;
+
+        .title {
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        a {
+            font-weight: 700;
+            color: $secondaryColor;
+
+            &:hover {
+                color: #fff;
+            }
+
+            svg {
+                padding-left: 10px;
+            }
+        }
+
+        &::before {
+            left: 0;
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            width: 50px;
+            height: 3px;
+            border-radius: 10px;
+            background: $secondaryColor;
+        }
+    }
+    &__list {
+        display: flex;
+        justify-content: center;
+    }
+    &__item {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+}

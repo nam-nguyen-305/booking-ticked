@@ -1,0 +1,112 @@
+<div class="container">
+  <div class="mt-4 mb-5">
+    <div class="trash">
+      <h3 class="title-admin">Danh sách vé</h3>
+      <div class="action mb-3">
+        <a class="mr-3 action-item"href="/">Trang chủ</a>
+        <a href=""></a>
+      </div>
+    </div>
+    <table class="table text-center">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Tên phim</th>
+          <th scope="col">Ngày chiếu</th>
+          <th scope="col">Giờ chiếu</th>
+          <th scope="col">Ghế ngồi</th>
+          <th scope="col">Trạng thái</th>
+          <th scope="col" colspan="2"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each tickeds}}
+          <tr>
+            <th scope="row">{{sum @index 1}}</th>
+            <td>{{this.movieName}}</td>
+            <td>{{this.date}}</td>
+            <td>{{this.startAt}}</td>
+            <td>{{this.inputSeatAdd}}</td>
+            {{#iff this.status '==' '1'}}
+              <td>Chưa thanh toán <br>
+                ({{this.inputTotal}}VND)</td>
+            {{else}}
+              <td>Đã thanh toán <br>
+                <a href="/booking/success">(Vé của bạn)</a>
+              </td>
+
+            {{/iff}}
+            <td>
+              <a href="/booking/{{this._id}}/confirm" class="btn btn-link">Chi tiết</a>
+              <a
+                href=""
+                class="btn btn-link"
+                data-toggle="modal"
+                data-target="#deleteTickedModal"
+                data-id="{{this._id}}"
+              >Hủy vé</a>
+            </td>
+          </tr>
+          {{else}}
+          <tr>
+            <td colspan="5" class="text-center">
+              Bạn chưa mua vé! <a href="/">Mua vé nào</a>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  {{! Confirm Delete }}
+
+  <div id="deleteTickedModal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Hủy vé</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Bạn chắc chắn muốn hủy vé</p>
+        </div>
+        <div class="modal-footer">
+          <button
+            id="btn-delete-ticked"
+            type="button"
+            class="btn btn-danger"
+          >Hủy đặt vé</button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+          >Hủy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<form method="POST" name="delete-ticked-form"></form>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() { 
+    var tickedID ;
+    var deleteForm=document.forms['delete-ticked-form'];
+    var btnDeleteTicked = document.getElementById('btn-delete-ticked'); 
+
+    //When delete confirm click
+    $('#deleteTickedModal').on('show.bs.modal', function (event) { 
+      var button =$(event.relatedTarget) 
+      tickedID = button.data('id') }); 
+    //When delete course btn click 
+    btnDeleteTicked.onclick=function() { deleteForm.action='/booking/'+tickedID +'/force?_method=DELETE'; 
+    deleteForm.submit(); } 
+  });
+
+</script>

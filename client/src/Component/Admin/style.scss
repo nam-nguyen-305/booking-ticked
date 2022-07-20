@@ -1,0 +1,100 @@
+@import "../../style/variables";
+@import "../../style/mixin";
+
+.admin {
+    &__header {
+        height: 5rem;
+        margin-bottom: 40px;
+        @include flex(row, space-between, center);
+    }
+
+    &__logo {
+        font-size: 50px;
+        font-weight: 700;
+        color: rgb(206, 200, 200);
+    }
+
+    &__account {
+        font-size: 20px;
+        color: rgb(206, 200, 200);
+
+        span {
+            margin-right: 1rem;
+        }
+    }
+
+    &__form-title {
+        text-align: center;
+        color: $primaryColor;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    &__btn {
+        @include transition(all, 0.3s);
+        color: $textColor;
+        font-size: 14px;
+        font-weight: 700;
+
+        &:hover {
+            color: $primaryColor;
+        }
+
+        &--accept {
+            color: $accept;
+        }
+
+        &--reject {
+            color: $reject;
+        }
+    }
+    .ant-tabs-nav-wrap {
+        justify-content: flex-start;
+    }
+    .ant-tabs-nav {
+        width: 15%;
+    }
+    .ant-tabs-tab {
+        width: 100%;
+        text-align: center;
+        display: block !important;
+        color: #9aace5;
+    }
+    .ant-tabs-tab.ant-tabs-tab-active {
+        border-top: 1px solid $secondaryColor;
+    }
+    .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+        color: $secondaryColor !important;
+        font-weight: bold;
+    }
+
+    .ant-tabs-tab {
+        transition: all 0.3s ease;
+        font-size: 18px;
+        &:hover {
+            border-top: 1px solid $secondaryColor;
+
+            color: $secondaryColor !important;
+        }
+    }
+    .ant-tabs {
+        margin-top: 10px;
+    }
+    .ant-tabs-ink-bar {
+        position: absolute;
+        background: $primaryColor;
+        pointer-events: none;
+    }
+    .ant-tabs-content-holder {
+        padding: 20px;
+    }
+}
+
+.popup-overlay {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+}
+.popup-content {
+    width: 50%;
+    background-color: $whiteColor;
+    padding: 3rem 6rem;
+}

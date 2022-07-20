@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="mt-5 mb-5">
+    <h3 class="title-admin">Đồ ăn</h3>
+    <a  class="d-block mb-3 action-item" href="/me/stored/food">Danh sách đồ ăn &#8594;</a>
+    <form class="mx-auto col-lg-6" method="POST" action="/food/store">
+      <div class="form-group">
+          <label for="name">Tên đồ ăn</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Nhập tên đồ ăn" />
+      </div>
+      <div class="form-group">
+          <label for="price">Giá tiền</label>
+          <input type="text" class="form-control" id="price" name="price" placeholder="Nhập giá" />
+      </div>
+      <div class="form-group">
+          <label for="img">Link ảnh</label>
+          <input type="text" class="form-control" id="img" name="img" placeholder="Link ảnh" />
+      </div>
+      <div class="form-group">
+          <label for="count">Số lượng</label>
+          <input type="text" class="form-control" id="count" name="count" placeholder="Nhập số lượng" />
+      </div>
+      <div class="form-group">
+          <label for="desc">Mô tả</label>
+          <input type="text" class="form-control" id="desc" name="desc" placeholder="Mô tả" />
+      </div>
+      <button type="submit" class="btn btn-submit align-items-center col-lg-6">Thêm đồ ăn</button>
+    </form>
+  </div>
+</div>

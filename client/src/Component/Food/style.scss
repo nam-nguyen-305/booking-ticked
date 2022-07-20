@@ -1,0 +1,148 @@
+@import "../../style/variables";
+
+.food {
+    background: #0f0c29; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2a2a35, #07023a, #0f0c29); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2a2a35, #07023a, #0f0c29);
+    padding: 2px;
+    margin: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+    &-thump {
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        img {
+            width: 100%;
+        }
+        .offer-tag {
+            position: absolute;
+            top: 0;
+            span {
+                display: inline-block;
+                width: auto;
+                height: 38px;
+                background-color: #f40b0b;
+                -webkit-border-radius: 3px 4px 4px 3px;
+                -moz-border-radius: 3px 4px 4px 3px;
+                border-radius: 3px 4px 4px 3px;
+                border-left: 1px solid #f40b0b;
+                margin-left: 19px;
+                position: relative;
+                color: white;
+                font-weight: 300;
+                font-size: 22px;
+                line-height: 38px;
+                padding: 0 10px 0 10px;
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    display: block;
+                    left: -19px;
+                    width: 0;
+                    height: 0;
+                    border-top: 19px solid transparent;
+                    border-bottom: 19px solid transparent;
+                    border-right: 19px solid #f40b0b;
+                }
+
+                &::after {
+                    content: "";
+                    background-color: white;
+                    border-radius: 50%;
+                    width: 4px;
+                    height: 4px;
+                    display: block;
+                    position: absolute;
+                    left: -9px;
+                    top: 17px;
+                }
+            }
+        }
+    }
+    &-content {
+        padding: 35px 30px 30px;
+    }
+    &-title {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        color: #fff;
+    }
+    &-action {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        padding-top: 30px;
+        margin-top: 24px;
+        border-top: 1px solid #11326f;
+        .quantity-wrapper {
+            display: flex;
+            width: 150px;
+            height: 40px;
+
+            .decrease {
+                width: 40px;
+                border: 1px solid #11326f;
+                border-radius: 30px 0 0 30px;
+                cursor: pointer;
+                height: 100%;
+                font-size: 25px;
+                line-height: 40px;
+                text-align: center;
+                transition: all 0.3s ease;
+                &:hover {
+                    background-color: $secondaryColor;
+                }
+            }
+            .increase {
+                width: 40px;
+                border: 1px solid #11326f;
+                border-radius: 0 30px 30px 0;
+                font-size: 25px;
+                cursor: pointer;
+                height: 100%;
+                transition: all 0.3s ease;
+                line-height: 40px;
+                text-align: center;
+                &:hover {
+                    background-color: $secondaryColor;
+                }
+            }
+            .food-quantity {
+                height: 100%;
+                width: 70px;
+                background: 0 0;
+                border: 1px solid #11326f;
+                text-align: center;
+                padding: 0;
+            }
+        }
+        .add-btn {
+            padding: 0 38px;
+            display: flex;
+            width: 125px;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            outline: none;
+            background: #eb1436;
+            color: #fff;
+            text-transform: uppercase;
+            border-radius: 25px;
+            svg {
+                margin-right: 10px;
+            }
+        }
+    }
+}

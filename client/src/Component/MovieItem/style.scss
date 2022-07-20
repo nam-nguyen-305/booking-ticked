@@ -1,0 +1,56 @@
+@import "../../style/variables";
+
+.movie {
+    margin-bottom: 30px;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 14px;
+    padding: 14px;
+    background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    justify-content: space-between;
+
+    &__thumb {
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    &__img {
+        width: 100%;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-transition: 0.3s ease-in-out;
+        transition: 0.3s ease-in-out;
+    }
+
+    &__name {
+        padding: 14px 0;
+        text-transform: capitalize;
+        border-bottom: 1px solid #11326f;
+        text-align: center;
+        font-size: 24px;
+        color: #fff;
+        -webkit-transition: 0.3s ease-in-out;
+        transition: 0.3s ease-in-out;
+    }
+
+    &__info {
+        display: flex;
+        justify-content: space-between;
+        li {
+            span {
+                padding-left: 10px;
+            }
+        }
+    }
+
+    &:hover .movie__img {
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+    &:hover .movie__name {
+        color: $secondaryColor;
+    }
+}

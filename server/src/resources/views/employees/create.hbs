@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="mt-5 mb-5">
+    <h3 class="title-admin">Thêm nhân viên</h3>
+    <a class="d-block mb-3 action-item" href="/me/stored/employees">&#8592; Danh sách nhân viên</a>
+    <form method="POST" action="/employees/store">
+      <div class="form-group d-flex">
+        <div class="col-lg-6">
+          <label for="fullname"><span style="color: red">*</span>&nbsp;Họ và tên </label>
+          <input type="text" class="form-control" id="fullname" name="fullname" />
+        </div>
+        <div class="col-lg-6">
+          <label for="email"><span style="color: red">*</span>&nbsp;Email </label>
+          <input type="email" class="form-control" id="email" name="email" />
+        </div>
+      </div>
+      <div class="form-group d-flex">
+        <div class="col-lg-6">
+          <label for="address"><span style="color: red">*</span>&nbsp;Địa chỉ</label>
+          <input type="text" class="form-control" id="address" name="address" />
+        </div>
+        <div class="col-lg-6">
+          <label for="cardId"><span style="color: red">*</span>&nbsp;Số CMND</label>
+          <input type="text" class="form-control" id="cardId" name="cardId" />
+        </div>
+      </div>
+      <div class="form-group d-flex">
+        <div class="col-lg-6">
+          <label for="age">
+            <span style="color: red">*</span>&nbsp;Tuổi 
+          </label>
+          <input type="number" class="form-control" id="age" name="age" placeholder="Tuổi"/>
+        </div>
+        <div class="col-lg-6">
+          <label for="gender"><span style="color: red">*</span>&nbsp;Giới tính</label>
+          <div class="maxl">
+            <label class="radio inline">
+              <input type="radio" name="gender" value="1" checked>
+              <span>Nam</span>
+            </label>
+            <label class="radio inline">
+              <input type="radio" name="gender" value="2">
+              <span>Nữ</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group d-flex">
+        <div class="col-lg-6">
+          <label for="phone"><span style="color: red">*</span>&nbsp;Số điện thoại </label>
+          <input type="number" class="form-control" id="phone" name="phone" />
+        </div>
+        <div class="col-lg-6">
+          <label for="role"><span style="color: red">*</span>&nbsp;Chức danh</label>
+          <div class="maxl">
+            <label class="radio inline">
+              <input type="radio" name="role" value="1" checked>
+              <span>Nhân viên</span>
+            </label>
+            <label class="radio inline">
+              <input type="radio" name="role" value="2">
+              <span>Quản lý</span>
+            </label>
+          </div>
+        </div>  
+      </div>
+    
+      <button type="submit" class="btn btn-submit align-items-center col-lg-6">Thêm nhân viên</button>
+    </form>
+  </div>
+</div>

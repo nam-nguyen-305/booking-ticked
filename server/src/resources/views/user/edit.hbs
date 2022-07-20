@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="mt-4">
+    <h3 class="title-admin">Thông tin tài khoản</h3>
+    <form method="POST" action="/user?_method=PUT">
+      <div class="form-group d-flex">
+          <div class="col-lg-6">
+            <label for="fullname"><span style="color: red">*</span>&nbsp;Họ và Tên</label>
+            <input type="text" class="form-control" value="{{register.fullname}}" id="fullname" name="fullname" />
+          </div>
+          <div class="col-lg-6">
+            <label for="email"><span style="color: red">*</span>&nbsp;Email</label>
+            <input type="text" class="form-control" value="{{register.email}}" id="email" name="email" readonly/>
+          </div>
+      </div>
+      <div class="form-group d-flex">
+          <div class="col-lg-6">
+            <label for="phone"><span style="color: red">*</span>&nbsp;SĐT</label>
+            <input type="text" class="form-control" value="{{register.phone}}" id="phone" name="phone" />
+          </div>
+          <div class="col-lg-6">
+            <label for="age"><span style="color: red">*</span>&nbsp;Tuổi</label>
+            <input type="text" class="form-control" value="{{register.age}}" id="age" name="age" />
+          </div>
+      </div>
+      <div class="form-group d-flex">
+          <div class="col-lg-6">
+            <label for="gender"><span style="color: red">*</span>&nbsp;Giới tính</label>
+
+            <input type="text" class="form-control" value="{{register.gender}}" id="gender" name="gender" readonly/>
+          </div>
+            <input type="hidden" class="form-control" value="{{register.password}}" id="password" name="password"/>
+            <input type="hidden" class="form-control" value="{{register.confirmPassword}}" id="confirmPassword" name="confirmPassword"/>
+
+      </div>
+      <div class="form-group">
+          <div class="col-lg-6">
+            <a href="#">Đổi mật khẩu?</a>
+          </div>
+      </div>
+      <div class="col-lg-12 text-center">
+        <button type="submit" class="btn btn-primary btn-upd">Cập nhật thông tin</button>
+      </div>
+    </form>
+  </div>
+</div>

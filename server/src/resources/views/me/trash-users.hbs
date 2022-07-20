@@ -1,0 +1,107 @@
+<div class="container">
+  <div class="mt-4 mb-5">
+    <div class="trash">
+      <h3 class="title-admin">Người dùng đã xóa</h3>
+      <a class="d-block mb-3 action-item" href="/me/stored/users">&#8592; Danh sách người dùng</a>
+    </div>
+    <table class="table text-center">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Tên</th>
+          <th scope="col">Tài khoản</th>
+          <th scope="col">SĐT</th>
+          <th scope="col" colspan="2"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each registers}}
+          <tr>
+            <th scope="row">{{sum @index 1}}</th>
+            <td>{{this.fullname}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.phone}}</td>
+            <td>
+              <a href="" data-id="{{this._id}}" class="btn btn-link btn-restore">Khôi phục</a>
+              <a
+                href=""
+                class="btn btn-link"
+                data-toggle="modal"
+                data-target="#deleteUserModal"
+                data-id="{{this._id}}"
+              >Xóa vĩnh viễn</a>
+            </td>
+          </tr>
+          {{else}}
+          <tr>
+            <td colspan="5" class="text-center">
+              Thùng rác trống 
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  {{! Confirm Delete }}
+
+  <div id="deleteUserModal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Xóa người dùng?</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Bạn chắc chắn muốn xóa vĩnh viễn người dùng này?</p>
+        </div>
+        <div class="modal-footer">
+          <button
+            id="btn-delete-user"
+            type="button"
+            class="btn btn-danger"
+          >Xóa bỏ</button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+          >Hủy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{!-- Delete-hidden-form --}}
+<form method="POST" name="delete-user-form"></form>
+<form name="restore-user-form" method="POST"></form>
+<script>
+  document.addEventListener("DOMContentLoaded", function() { 
+    var userID ;
+    var deleteForm=document.forms['delete-user-form'];
+    var restoreForm=document.forms['restore-user-form'] 
+    var btnDeleteUser = document.getElementById('btn-delete-user');
+    var restoreBtn = $('.btn-restore') ;
+
+    //When delete confirm click
+    $('#deleteUserModal').on('show.bs.modal', function (event) { 
+      var button =$(event.relatedTarget) 
+      userID = button.data('id') }); 
+    //When delete course btn click 
+    btnDeleteUser.onclick=function() { deleteForm.action='/users/'+userID +'/force?_method=DELETE'; 
+    deleteForm.submit(); } 
+
+    restoreBtn.click(function(e) {
+        e.preventDefault();
+        var userID = $(this).data('id')
+        restoreForm.action='/users/' + userID +'/restore?_method=PATCH';
+        restoreForm.submit(); 
+      })
+  });
+
+</script>

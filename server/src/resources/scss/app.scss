@@ -1,0 +1,18 @@
+@import 'base/variables';
+@import 'base/reset';
+@import 'base/mixin';
+
+@import 'component/button';
+@import 'component/breadcrumb';
+@import 'component/title';
+@import 'component/action';
+@import 'component/seat';
+
+@import 'partials/header';
+@import 'partials/footer';
+
+@import 'pages/home';
+@import 'pages/movie-detail';
+@import 'pages/seat';
+@import 'pages/success';
+@import 'pages/login';

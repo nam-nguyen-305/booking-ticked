@@ -1,0 +1,278 @@
+{{!-- <script>
+    var lstSeatChoosed = [
+        {{#each ticked}}
+            {
+                seat: '{{inputSeatAdd}}'
+            }
+            {{#unless @last}},{{/unless}}
+        {{/each}}
+    ];
+</script>
+
+<div class="container">
+  <section class="booking mt-5 mb-5">
+    <div class="row">
+      <div class="col-md-8">
+        <h3 class="breadcrumb pl-0 mb-4">
+          Trang chủ > Đặt vé >
+          <span> {{movie.name}}</span>
+        </h3>
+        <div class="booking_notice">Theo quy định của cục điện ảnh, phim này không dành cho khán giả dưới {{movie.ageLimit}} tuổi.</div>
+        <div class="booking_choose-seat">
+            <div class="booking_seat-status">
+                <div class="col-md-4 d-flex text-center align-items-center">
+                    <div id="seat" class="seatBtn ml-2"></div>
+                    <small class="status" style="font-size: 1em;">Ghế trống</small>
+                </div>
+                <div class="col-md-4 d-flex text-center align-items-center">
+                    <div id="seat" class="seatBtn selectedNot ml-2"></div>
+                    <small class="status" style="font-size: 1em;">Ghế đang chọn</small>
+                </div>
+                <div class="col-md-4 d-flex text-center align-items-center">
+                    <div id="seat" class="seatBtn occupied ml-2"></div>
+                    <small class="status" style="font-size: 1em;">Ghế đã chọn</small>
+                </div>
+            </div>
+        </div>
+        <div class="booking_seat-main mt-3">
+            <img src="https://www.betacinemas.vn/Assets/global/img/booking/ic-screen.png" alt="Màn hình chiếu">
+            <div class="checkshow">
+                {{#for 8}}
+                    {{#iff this '==' '0'}}
+                        <div class="row justify-content-center ">
+                            {{#for 8}}                 
+                                <button id="seat" onclick="chooseSeet(this)" data-flag="0" class="seatBtn">A{{this}}</button>                     
+                            {{/for}}
+                        </div>
+                    {{/iff}}
+                    {{#iff this '==' '1'}}
+                        <div class="row justify-content-center ">
+                            {{#for 8}}                  
+                                <button id="seat" onclick="chooseSeet(this)" data-flag="0" class="seatBtn">B{{this}}</button>                     
+                            {{/for}}
+                        </div>
+                    {{/iff}}
+                    {{#iff this '==' '2'}}
+                        <div class="row justify-content-center ">
+                            {{#for 8}}                  
+                                <button id="seat" onclick="chooseSeet(this)" data-flag="0" class="seatBtn">C{{this}}</button>                     
+                            {{/for}}
+                        </div>
+                    {{/iff}}
+                    {{#iff this '==' '3'}}
+                        <div class="row justify-content-center ">
+                            {{#for 8}}                  
+                                <button id="seat" onclick="chooseSeet(this)" data-flag="0" class="seatBtn">D{{this}}</button>                     
+                            {{/for}}
+                        </div>
+                    {{/iff}}
+                    {{#iff this '==' '4'}}
+                        <div class="row justify-content-center ">
+                            {{#for 8}}                  
+                                <button id="seat" onclick="chooseSeet(this)" data-flag="0" class="seatBtn">E{{this}}</button>                     
+                            {{/for}}
+                        </div>
+                    {{/iff}}
+                    {{#iff this '==' '5'}}
+                        <div class="row justify-content-center ">
+                            {{#for 8}}                  
+                                <button id="seat" onclick="chooseSeet(this)" data-flag="0" class="seatBtn">F{{this}}</button>                     
+                            {{/for}}
+                        </div>
+                    {{/iff}}
+                    {{#iff this '==' '6'}}
+                        <div class="row justify-content-center ">
+                            {{#for 8}}                  
+                                <button id="seat" onclick="chooseSeet(this)" data-flag="0" class="seatBtn">G{{this}}</button>                     
+                            {{/for}}
+                        </div>
+                    {{/iff}}
+                    {{#iff this '==' '7'}}
+                        <div class="row justify-content-center ">
+                            {{#for 8}}                  
+                                <button id="seat" onclick="chooseSeet(this)" data-flag="0" class="seatBtn">H{{this}}</button>                     
+                            {{/for}}
+                        </div>
+                    {{/iff}}
+                    {{#iff this '==' '8'}}
+                        <div class="row justify-content-center ">
+                            {{#for 8}}                  
+                                <button id="seat" onclick="chooseSeet(this)" data-flag="0" class="seatBtn">I{{this}}</button>                     
+                            {{/for}}
+                        </div>
+                    {{/iff}}
+                    
+                {{/for}}
+            </div>
+            <div class="pay mt-3 d-flex">
+                <span class="col-lg-6 text-center pay_item" id="count">Số ghế đã chọn: 0</span>
+                <span class="col-lg-6 text-center pay_item" id="total">Tổng tiền: 0</span>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-4 d-flex flex-wrap">
+          <form name="confirm" class="booking_form" method="POST" action="/booking/confirmPost">
+            <div class="col-md-12 d-flex"> 
+                <div class="col-md-6">
+                    <img src={{movie.img}} alt="">
+                </div>
+                <input type="hidden" class="form-control" id="img" name="img" value="{{movie.img}}">
+                <div class="col-md-6">
+                    <h3 class="booking_name mb-2"> {{movie.name}}</h3>
+                    <h4>2D Phụ đề</h4>
+                </div>
+                <input type="hidden" class="form-control" id="movieName" name="movieName" value="{{movie.name}}">
+            </div>
+            <div class="col-md-12 mt-3">
+                <div class="col-md-12 mt-2 d-flex">
+                    <div class="col-md-6">
+                        <i class="fas fa-tags"></i>
+                        &nbsp; Thể loại
+                    </div>
+                    <div class="col-md-6 booking_info">
+                        {{movie.category}}
+                    </div>
+                    <input type="hidden" class="form-control" id="category" name="category" value="{{movie.category}}">
+                </div>
+                <div class="col-md-12 mt-2 d-flex">
+                    <div class="col-md-6">
+                        <i class="fas fa-clock"></i>
+                        &nbsp; Thời lượng
+                    </div>
+                    <div class="col-md-6 booking_info">
+                        {{movie.time}} phút
+                    </div>
+                    <input type="hidden" class="form-control" id="time" name="time" value="{{movie.time}}">
+                </div>
+            </div>
+            <div class="col-md-12 mt-3">
+                <hr>
+                <div class="col-md-12 mt-2 d-flex">
+                    <div class="col-md-6">
+                        <i class="fas fa-university"></i>
+                        &nbsp; Rạp chiếu
+                    </div>
+                    <div class="col-md-6 booking_info">
+                        Beta Mỹ Đình
+                    </div>
+                </div>
+                <div class="col-md-12 mt-2 d-flex">
+                    <div class="col-md-6">
+                        <i class="fas fa-calendar-alt"></i>
+                        &nbsp; Ngày chiếu
+                    </div>
+                    <div class="col-md-6 booking_info">
+                        {{showtime.day}}
+                    </div>
+                    <input type="hidden" class="form-control" id="date" name="date" value="{{showtime.day}}">
+                </div>
+                <div class="col-md-12 mt-2 d-flex">
+                    <div class="col-md-6">
+                        <i class="fas fa-clock"></i>
+                        &nbsp; Giờ chiếu
+                    </div>
+                    <div class="col-md-6 booking_info">
+                        {{showtime.startAt}}
+                    </div>
+                    <input type="hidden" class="form-control" id="startAt" name="startAt" value="{{showtime.startAt}}">
+
+                </div>
+                <div class="col-md-12 mt-2 d-flex">
+                    <div class="col-md-6">
+                        <i class="fas fa-tv"></i>
+                        &nbsp; Phòng chiếu
+                    </div>
+                    <div class="col-md-6 booking_info">
+                        {{room.name}}
+                    </div>
+                    <input type="hidden" class="form-control" id="room" name="room" value="{{room.name}}">
+                </div>
+                <div class="col-md-12 mt-2 d-flex">
+                    <div class="col-md-6">
+                        <i class="fas fa-cubes"></i>
+                        &nbsp; Ghế ngồi
+                    </div>
+                    <div id="seatAdd" class="col-md-6 booking_info">
+                    </div>
+                    <input id="inputSeatAdd" name="inputSeatAdd" type="hidden" value="">
+                </div>
+                <input type="hidden" id="inputCount" name="inputCount" value="">
+                <input type="hidden" id="inputTotal" name="inputTotal" value="">
+                <input type="hidden" id="user" name="user" value="{{fullname}}">
+                <input type="hidden" id="phone" name="phone" value="{{phone}}">
+                <input type="hidden" id="email" name="email" value="{{email}}">
+                <button type="submit" class="btn btn-ticket mt-3" data-toggle="modal"
+                data-target="#confirmModal">Tiếp tục</button>
+            </div>
+          </form>
+      </div>
+    </div>
+  </section>
+</div>
+<script type="text/javascript">
+   var lstSeat = document.querySelectorAll("button.seatBtn");
+    [].forEach.call(lstSeat, function(e) {
+        let seatText = e.innerText;
+        lstSeatChoosed.forEach((s,i)=>{
+            let seatArr = s.seat.split(',');
+            let findSeat = seatArr.find(x => x == seatText);
+            if(findSeat != undefined){
+                e.setAttribute("disabled","disabled");
+                e.classList.add("occupied");
+            }
+        })
+   });
+</script>
+<script>
+    var count=0;
+    var lstSeetName = [];
+    var price = 50000;
+    function chooseSeet(element)
+    { 
+        var flag = element.dataset.flag;
+        if(flag == '0') {
+            element.dataset.flag = '1'
+
+            count++;
+            let total=count*price;
+            totalFormat = total.toLocaleString('it-IT');
+            element.classList.add("selected");
+            let seetName = element.innerText;
+            lstSeetName.push(seetName);
+
+            document.getElementById("count").innerText= `Số ghế đã chọn: ${count}x50.000 VND`;
+            document.getElementById("inputCount").value = count;
+            document.getElementById("total").innerText=`Tổng tiền: ${totalFormat} VND`;
+            document.getElementById("inputTotal").value = totalFormat;
+
+        }
+        if(flag == '1') {
+            element.dataset.flag = '0'
+
+            count--;
+            let total=count*price;
+            total = total.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+            element.classList.remove("selected");
+            let seetName = element.innerText;
+            lstSeetName.pop(seetName);
+
+            if(count == 0){
+                document.getElementById("count").innerText= `Số ghế đã chọn: ${count}`;
+            }
+            else{
+                document.getElementById("count").innerText= `Số ghế đã chọn: ${count}x50.000 VND`;
+            }
+            document.getElementById("inputCount").value = count;
+            document.getElementById("inputTotal").value = total;
+            document.getElementById("total").innerText=`Tổng tiền: ${total}`;
+        }
+        
+        let strLstSeet = lstSeetName.join(",");
+        
+        document.getElementById("seatAdd").innerText=`${strLstSeet}`;
+        document.getElementById("inputSeatAdd").value = strLstSeet;
+    }
+
+      
+      
+</script> --}}

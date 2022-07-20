@@ -1,0 +1,57 @@
+@import "../../style/variables";
+
+.payment-option {
+    display: flex;
+    margin-top: 30px;
+    justify-content: center;
+    &__item {
+        width: 150px;
+        margin: 0 20px;
+        border-radius: 10px;
+        color: #bbcbff;
+        border: 1px solid #11326f;
+        text-align: center;
+        padding: 20px 10px 18px;
+        height: 100%;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        svg {
+            width: 40px;
+            height: 40px;
+        }
+    }
+}
+.active {
+    .payment-option__item {
+        border-color: $secondaryColor;
+        border-width: 2px;
+        color: $secondaryColor;
+        position: relative;
+        &::before {
+            background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            top: -20px;
+            right: -20px;
+            content: "";
+            position: absolute;
+        }
+
+        &::after {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            top: -15px;
+            right: -15px;
+            background: url("../../statics/image/check.png") no-repeat center center;
+            background-size: cover;
+            content: "";
+            position: absolute;
+        }
+    }
+}

@@ -1,0 +1,113 @@
+<div class="container">
+  <div class="mt-4 mb-5">
+    <div class="trash">
+      <h3 class="title-admin">Nhân viên đã xóa</h3>
+      <a class="d-block mb-3 action-item" href="/me/stored/employees">&#8592; Danh sách nhân viên</a>
+    </div>
+    <table class="table text-center">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Họ và tên</th>
+          <th scope="col">Email</th>
+          <th scope="col">SĐT</th>
+          <th scope="col">Chức vụ</th>
+          <th scope="col" colspan="2"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each employees}}
+          <tr>
+            <th scope="row">{{sum @index 1}}</th>
+            <td>{{this.fullname}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.phone}}</td>
+            {{#iff this.role '==' '1'}}
+              <td>Nhân viên</td>
+            {{else}}
+              <td>Quản lý</td>
+            {{/iff}}
+            <td>
+              <a href="" data-id="{{this._id}}" class="btn btn-link btn-restore">Khôi phục</a>
+              <a
+                href=""
+                class="btn btn-link"
+                data-toggle="modal"
+                data-target="#deleteEmployeeModal"
+                data-id="{{this._id}}"
+              >Xóa vĩnh viễn</a>
+            </td>
+          </tr>
+          {{else}}
+          <tr>
+            <td colspan="5" class="text-center">
+              Thùng rác trống 
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  {{! Confirm Delete }}
+
+  <div id="deleteEmployeeModal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Xóa người dùng?</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Bạn chắc chắn muốn xóa vĩnh viễn người dùng này?</p>
+        </div>
+        <div class="modal-footer">
+          <button
+            id="btn-delete-employee"
+            type="button"
+            class="btn btn-danger"
+          >Xóa bỏ</button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+          >Hủy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{!-- Delete-hidden-form --}}
+<form method="POST" name="delete-employee-form"></form>
+<form name="restore-employee-form" method="POST"></form>
+<script>
+  document.addEventListener("DOMContentLoaded", function() { 
+    var employeeID ;
+    var deleteForm=document.forms['delete-employee-form'];
+    var restoreForm=document.forms['restore-employee-form'] 
+    var btnDeleteEmployee = document.getElementById('btn-delete-employee');
+    var restoreBtn = $('.btn-restore') ;
+
+    //When delete confirm click
+    $('#deleteEmployeeModal').on('show.bs.modal', function (event) { 
+      var button =$(event.relatedTarget) 
+      employeeID = button.data('id') }); 
+    //When delete course btn click 
+    btnDeleteEmployee.onclick=function() { deleteForm.action='/employees/'+employeeID +'/force?_method=DELETE'; 
+    deleteForm.submit(); } 
+
+    restoreBtn.click(function(e) {
+        e.preventDefault();
+        var employeeID = $(this).data('id')
+        restoreForm.action='/employees/' + employeeID +'/restore?_method=PATCH';
+        restoreForm.submit(); 
+      })
+  });
+
+</script>

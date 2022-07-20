@@ -1,0 +1,25 @@
+.success {
+    margin: 0 auto;
+    text-align: center;
+    &_title {
+        h1 {
+            margin-bottom: 30px;
+            font-size: 33px;
+            color: $primary-color;
+            
+        }
+    }
+    &_main {
+        .one {
+            font-size: 20px;
+            font-weight: 500;
+
+        }
+    }
+    &_link {
+        a {
+            font-size: 20px;
+            color: $title-color;
+        }
+    }
+}

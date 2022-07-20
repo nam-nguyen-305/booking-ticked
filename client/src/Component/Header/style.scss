@@ -1,0 +1,97 @@
+@import "../../style/variables";
+@import "../../style/global";
+
+.background-active {
+    background: #0f0c29; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2a2a35, #07023a, #0f0c29); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+        to right,
+        #2a2a35,
+        #07023a,
+        #0f0c29
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.header {
+    padding: 21px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    &__list {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__logo {
+        width: 170px;
+        img {
+            max-width: 100%;
+        }
+    }
+
+    &__nav {
+        display: inline-block;
+        width: 60%;
+        &__list {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &__item {
+            display: flex;
+            position: relative;
+            align-items: center;
+
+            &:hover {
+                span,
+                svg {
+                    color: $secondaryColor;
+                    &::before {
+                        opacity: 1;
+                        left: -1px;
+                    }
+                }
+            }
+            span {
+                color: #fff;
+                display: flex;
+                padding: 0 1.3rem;
+                cursor: pointer;
+                font-weight: bold;
+                font-size: 1.75rem;
+                transition: all 0.4s;
+            }
+            svg {
+                color: #fff;
+                transition: all 0.4s;
+            }
+        }
+    }
+
+    &__account {
+        &__item {
+            background: $secondaryColor;
+            padding: 10px 49px;
+            font-weight: 600;
+            border-radius: 25px;
+            display: inline-block;
+            color: #fff;
+
+            &:hover {
+                -webkit-box-shadow: 0px 10px 15px 0px rgb(49 215 169 / 50%);
+                box-shadow: 0px 10px 15px 0px rgb(49 215 169 / 50%);
+                color: #fff;
+            }
+        }
+    }
+
+    &__user-name {
+        color: #fff;
+        font-size: 17.5px;
+        &:hover {
+            color: $secondaryColor;
+        }
+    }
+}

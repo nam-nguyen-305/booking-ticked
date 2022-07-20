@@ -1,0 +1,25 @@
+.seatBtn {
+    background-color: #444451;
+    color: #ccc;
+    text-align: center;
+    font-size: 17px;
+    height: 30px;
+    width: 30px;
+    margin: 5px;
+    @include marginX(10px,10px);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    &.selectedNot,
+    &.selected {
+        background-color: $blue-primary-color;
+    }
+    &.occupied {
+        background-color: red;
+        &:hover {
+            cursor:unset;
+        }
+    }
+    &:hover {
+        cursor: pointer;
+    }
+}
