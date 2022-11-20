@@ -94,16 +94,15 @@ function Visa({ submit }) {
                             </div>
                         </div>
                         <div className="mt-5">
+                            <label htmlFor=''>Customer Name</label>
 
                             <input
                                 label={'name'}
                                 id='name'
-                                maxLength={2}
                                 className='form-input w-100'
                                 type='text'
-                                onKeyPress={e => numberOnly(e)}
                                 name='name'
-                                placeholder='YY'
+                                placeholder='Customer Name'
                                 value={name}
                                 onChange={(e) =>
                                     setName(e.target.value)

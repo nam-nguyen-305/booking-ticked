@@ -32,9 +32,8 @@ function Food({ food, addToTicked, listFoodAdded, setListFoodAdded }) {
                     if (item.quantity >= 1) {
                         item.quantity -= 1
                         item.totalFoodPrice = parseInt(item.foodItem.price) * (item.quantity)
-                        setQuantityFood(quantityFood - 1)
                         const newListFood = [...listFoodAdded]
-
+                        setQuantityFood(quantityFood - 1)
                         setListFoodAdded(newListFood)
 
                     } else {
@@ -45,7 +44,7 @@ function Food({ food, addToTicked, listFoodAdded, setListFoodAdded }) {
                 }
             })
         }
-
+        setQuantityFood(quantityFood - 1)
     }
     const price = parseInt(food.price).toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
 

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from "react-bootstrap";
-
+import { Modal } from 'antd';
+import Popup from "reactjs-popup";
+import PopupTicked from "./popup-ticked"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchListTicked } from "../../store/slice/BookingSlice"
 import "./style.scss"
@@ -8,8 +10,8 @@ function ListTicked() {
     const dispatch = useDispatch();
     const listTicked = useSelector((state) => state.booking.listTicked.data);
     const auth = JSON.parse(localStorage.getItem("userInfo"));
-    const email = auth.user.email
-    console.log(listTicked)
+    const email = auth.email
+
     useEffect(() => {
         dispatch(fetchListTicked(email));
     }, [email]);
@@ -22,10 +24,12 @@ function ListTicked() {
                         <thead>
                             <tr className="list-ticked__head">
                                 <th>Tên phim</th>
-                                <th>Hàng ghế</th>
+                                <th className="seat-width">Hàng ghế</th>
+                                <th>Đồ ăn</th>
                                 <th>Ngày/Giờ</th>
                                 <th>Tổng tiền</th>
                                 <th>Trạng thái</th>
+                                <th>Chi tiết</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,13 +45,27 @@ function ListTicked() {
                                                 {item.listSeat}
                                             </td>
                                             <td>
+                                                {item.food}
+                                            </td>
+                                            <td>
                                                 {`${item.date}/${item.startAt}`}
                                             </td>
                                             <td>
-                                                {parseInt(item.totalPrice).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}
+                                                {item.totalPrice}
                                             </td>
                                             <td>
                                                 {item.status === 1 ? <h4>Đã thanh toán</h4> : <h4>Đang chờ</h4>}
+                                            </td>
+                                            <td>
+                                                <Popup modal
+                                                    trigger=
+                                                    {
+                                                        <button className="">
+                                                            Chi tiết
+                                                        </button>
+                                                    }>
+                                                    {close => <PopupTicked ticked={item} />}
+                                                </Popup>
                                             </td>
                                         </tr>
                                     ))

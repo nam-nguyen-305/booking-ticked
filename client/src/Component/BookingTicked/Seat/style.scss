@@ -11,18 +11,22 @@
 }
 .seat-item {
     position: relative;
+    padding: 0 5px;
+
     img {
-        width: 60px;
-        height: 60px;
+        width: 50px;
+        height: 50px;
     }
     span {
         position: absolute;
         top: 50%;
         left: 50%;
+        color: #272727;
         -webkit-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
         text-transform: uppercase;
         font-size: 14px;
+        font-weight: bold;
         transition: all 0.3s;
     }
 }

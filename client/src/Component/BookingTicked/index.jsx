@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux"
@@ -18,13 +17,16 @@ function BookingTicked() {
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const bookingInfo = useSelector((state) => state.booking.bookingInfo.data);
+
     const auth = JSON.parse(localStorage.getItem("userInfo"));
     const [listPickingSeat, setListPickingSeat] = useState([])
-    let newListChosenSeat
+    const [totalPrice, setTotalPrice] = useState(0)
+
     useEffect(() => {
         dispatch(fetchBookingInfo(payload));
     }, [payload]);
 
+    let newListChosenSeat
     let backgroundStyle
     if (bookingInfo) {
         backgroundStyle = {
@@ -33,30 +35,37 @@ function BookingTicked() {
         const listChosenSeat = bookingInfo.ticked.map(item => item.listSeat.split(" "))
         newListChosenSeat = listChosenSeat.flat()
     }
+
     const checkChosenSeat = seat => newListChosenSeat.includes(seat)
     const checkListPickingSeat = (seat) => listPickingSeat.includes(seat)
-    const addTicked = (item) => {
+
+    const addTicked = (item, typeOfSeat) => {
         let updateListPickingSeat = [...listPickingSeat]
+        const priceTypeOfSeat = typeOfSeat === 'normal' ? 50000 : 70000
+
         if (!checkChosenSeat(item)) {
             if (!checkListPickingSeat(item)) {
                 updateListPickingSeat = [...listPickingSeat, item]
+                setTotalPrice(totalPrice + priceTypeOfSeat)
             } else {
                 updateListPickingSeat.splice(listPickingSeat.indexOf(item), 1)
+                setTotalPrice(totalPrice - priceTypeOfSeat)
             }
         }
         setListPickingSeat(updateListPickingSeat)
     }
-    const submitBooking = () => {
 
+    const submitBooking = () => {
         if (auth) {
             navigate(`/booking/${bookingInfo.movie.slug}/confirm`, {
-                state: { bookingInfo: bookingInfo, ticked: listPickingSeat }
+                state: { bookingInfo: bookingInfo, ticked: listPickingSeat, totalPrice: totalPrice }
             },
             )
         } else {
             navigate("/login")
         }
     }
+
     return (
         <>
             {bookingInfo &&
@@ -95,15 +104,25 @@ function BookingTicked() {
                         <Container>
                             <div className="screen-area">
                                 <h4 className="screen">
-                                    theater
+                                    Phòng số {bookingInfo.showtime.room.name}
                                 </h4>
                                 <div className="screen-thump">
                                     <img src={require("../../statics/image/theater.png")} />
                                 </div>
                             </div>
+                            <div className="seat-notice-wrapper">
+                                <div className="seat-notice">
+                                    <img src={require(`../../statics/image/seat-unselect-normal.png`)} />
+                                    <span>Ghế thường</span>
+                                </div>
+                                <div className="seat-notice">
+                                    <img src={require(`../../statics/image/seat-unselect-vip.png`)} />
+                                    <span>Ghế Vip</span>
+                                </div>
+                            </div>
                         </Container>
                     </section>
-                    <Seat listChosenSeat={newListChosenSeat} addTicked={addTicked} listPickingSeat={listPickingSeat} submitBooking={submitBooking} />
+                    <Seat listChosenSeat={newListChosenSeat} addTicked={addTicked} listPickingSeat={listPickingSeat} submitBooking={submitBooking} totalPrice={totalPrice} />
                 </div>
             }
         </>

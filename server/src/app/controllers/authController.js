@@ -1,7 +1,5 @@
-const Register = require("../models/registers");
-const jwt = require("jsonwebtoken");
-
-const handleErrors = require("handle-errors");
+const Register = require('../models/registers');
+const jwt = require('jsonwebtoken');
 
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = (id) => {
@@ -9,12 +7,7 @@ const createToken = (id) => {
     expiresIn: maxAge,
   });
 };
-module.exports.signup_get = (req, res) => {
-  res.render("register");
-};
-module.exports.login_get = (req, res) => {
-  res.render("login");
-};
+
 module.exports.signup_post = async (req, res) => {
   try {
     const password = req.body.password;
@@ -22,16 +15,12 @@ module.exports.signup_post = async (req, res) => {
     if (password === cpassword) {
       const user = await Register.create(req.body);
       const token = createToken(user._id);
-      // res.cookie("jwt", token, {
-      //   httpOnly: true,
-      //   maxAge: maxAge * 1000,
-      // });
       res.send({ user, token });
     } else {
-      res.send("password is not matching");
+      res.send('Mật khẩu không trùng khớp');
     }
   } catch (error) {
-    res.status(400).send({ error });
+    res.status(400).json({ error });
   }
 };
 module.exports.login_post = async (req, res) => {
@@ -40,17 +29,11 @@ module.exports.login_post = async (req, res) => {
     const password = req.body.password;
     const user = await Register.login(email, password);
     const token = createToken(user._id);
-    // res.cookie("jwt", token, {
-    //   httpOnly: true,
-    //   maxAge: maxAge * 1000,
-    // });
-    // res.status(200).redirect("/");
     res.status(200).send({ user, token });
   } catch (error) {
-    console.log(error);
-    res.status(400).json({});
+    res.status(200).json({ error: error.message });
   }
 };
 module.exports.logout_get = (req, res) => {
-  res.redirect("/");
+  res.redirect('/');
 };

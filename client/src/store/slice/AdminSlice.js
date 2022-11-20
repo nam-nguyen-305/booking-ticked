@@ -1,9 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import queryString from 'query-string';
+
 const initialState = {
   listUser: [],
   listShowtimes: [],
   listRoom: [],
+  listAllShowtimes: [],
   isLoading: false,
 };
 
@@ -56,6 +59,69 @@ export const getListRoom = createAsyncThunk('room/get', async () => {
     return err;
   }
 });
+
+export const getAllShowtime = createAsyncThunk(
+  'allShowtimes/get',
+  async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_DATA}/showtimes/list-all-showtime`
+      );
+      return res.data;
+    } catch (err) {
+      return err;
+    }
+  }
+);
+
+export const addRoom = createAsyncThunk(
+  'room/add',
+  async (newRoom) => {
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_DATA}/rooms/store`,
+        newRoom
+      );
+      return res;
+    } catch (err) {
+      console.log(err);
+      return err;
+    }
+  }
+);
+
+// update food
+
+export const updateRoom = createAsyncThunk(
+  'room/update',
+  async ({ id, newRoom }) => {
+    try {
+      const res = await axios.put(
+        `${process.env.REACT_APP_DATA}/rooms/update/${id}`,
+        newRoom
+      );
+      return res.data;
+    } catch (err) {
+      return err;
+    }
+  }
+);
+
+// delete food
+
+export const deleteRoom = createAsyncThunk(
+  'room/delete',
+  async (id) => {
+    try {
+      const res = await axios.delete(
+        `${process.env.REACT_APP_DATA}/rooms/delete/${id}`
+      );
+      return res.data;
+    } catch (err) {
+      return err;
+    }
+  }
+);
 export const addShowtime = createAsyncThunk(
   'showtime/add',
   async (newShowtime) => {
@@ -63,6 +129,21 @@ export const addShowtime = createAsyncThunk(
       const res = await axios.post(
         `${process.env.REACT_APP_DATA}/showtimes/store`,
         newShowtime
+      );
+      return res;
+    } catch (err) {
+      console.log(err);
+      return err;
+    }
+  }
+);
+
+export const deleteShowtime = createAsyncThunk(
+  'showtime/add',
+  async (id) => {
+    try {
+      const res = await axios.delete(
+        `${process.env.REACT_APP_DATA}/showtimes/delete/${id}`
       );
       return res;
     } catch (err) {
@@ -144,6 +225,16 @@ export const AdminSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getListShowtime.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(getAllShowtime.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllShowtime.fulfilled, (state, action) => {
+        state.listAllShowtimes = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(getAllShowtime.rejected, (state, action) => {
         state.isLoading = false;
       })
       .addCase(getListRoom.pending, (state) => {

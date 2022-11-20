@@ -59,7 +59,7 @@ class movieController {
       movies: callMovie,
     });
   }
-  //[POST] /courses/create
+  //[POST] /  /create
   create(req, res, next) {
     const movie = new Movie(req.body);
     movie
@@ -88,7 +88,7 @@ class movieController {
       .then(() => res.send(req.params.id))
       .catch(next);
   }
-  //[DELETE] /courses/:id/force
+  //[DELETE] /  /:id/force
   forceDestroy(req, res, next) {
     Movie.deleteOne({ _id: req.params.id })
       .then(() => res.redirect('back'))

@@ -1,23 +1,18 @@
 import React from 'react';
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux"
-// import Select from 'react-select';
 import ShowtimeItem from './ShowtimeItem'
-import { Form } from "react-bootstrap"
+
 import { Tabs } from 'antd';
+import { dayOfWeek } from '../../../../const/day-of-week'
 const { TabPane } = Tabs;
 
-function EditShowtime({ showtime, room, movie }) {
-    const listDay = showtime.map(item => item.day)
+function EditShowtime({ showtime, room, movie, listAllShowtimes }) {
 
-    const newListDay = listDay.reduce((unique, item) =>
-        unique.includes(item) ? unique : [...unique, item], []);
     const TabUi = () => (
         <Tabs defaultActiveKey="1">
             {
-                newListDay.map((item, index) => (
+                dayOfWeek(10).map((item, index) => (
                     <TabPane tab={item} key={index}>
-                        <ShowtimeItem day={item} showtime={showtime} room={room} movie={movie} />
+                        <ShowtimeItem day={item} showtime={showtime} room={room} movie={movie} listAllShowtimes={listAllShowtimes} />
                     </TabPane>
                 ))
             }

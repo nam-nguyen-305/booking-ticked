@@ -1,5 +1,5 @@
 const Room = require('../models/cinemaRoom');
-const { mongooseToObject } = require('../../util/mongoose');
+
 class roomController {
   // [GET] /movies/:slug
   fetchListRoom(req, res, next) {
@@ -7,39 +7,35 @@ class roomController {
       .then((room) => res.send({ room }))
       .catch(next);
   }
-  //[GET] /courses/create
+  //[GET] /  /create
   create(req, res, next) {
     res.render('cinemaRoom/createRoom');
   }
-  //[POST] /courses/create
+  //[POST] /  /create
   store(req, res, next) {
     const room = new Room(req.body);
     room
       .save()
-      .then(() => res.redirect('/me/stored/rooms'))
-      .catch((err) => {});
+      .then(() => res.send(req.body))
+      .catch((err) => res.send({ err }));
   }
   //[GET] /movies/:id/edit
   edit(req, res, next) {
     Room.findById(req.params.id)
-      .then((room) =>
-        res.render('cinemaRoom/editRoom', {
-          room: mongooseToObject(room),
-        })
-      )
+      .then((room) => res.send({ room }))
       .catch(next);
   } //[PUT] /movies/:id
   update(req, res, next) {
     Room.updateOne({ _id: req.params.id }, req.body).then(() =>
-      res.redirect('/me/stored/rooms')
+      res.send(req.body)
     ).catch;
   }
   destroy(req, res, next) {
     Room.delete({ _id: req.params.id })
-      .then(() => res.redirect('back'))
+      .then(() => res.send('ok'))
       .catch(next);
   }
-  //[DELETE] /courses/:id/force
+  //[DELETE] /  /:id/force
   forceDestroy(req, res, next) {
     Room.deleteOne({ _id: req.params.id })
       .then(() => res.redirect('back'))

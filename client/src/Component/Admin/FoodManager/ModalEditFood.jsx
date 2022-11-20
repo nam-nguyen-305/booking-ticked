@@ -25,7 +25,7 @@ function ModalEditFood({ food, close }) {
         }
         const foodId = food._id
         await dispatch(updateFood({ id: foodId, newFood: newFood }))
-        toast.success("Đã cập nhật thông tin phim!", {
+        toast.success("Đã cập nhật thông tin món ăn!", {
             position: "top-right",
             autoClose: 2500,
         });

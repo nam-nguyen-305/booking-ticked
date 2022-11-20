@@ -9,14 +9,16 @@ class bookingController {
     var date = req.query.day;
     var startAt = req.query.startAt;
     var slug = req.query.slug;
+    var room = req.query.room;
     const callTicked = Ticked.find({
-      $and: [{ date: date }, { startAt: startAt }],
+      $and: [{ date: date }, { startAt: startAt }, { room: room }],
     }).lean();
     const callShowtime = Showtime.findOne({
       $and: [
         { startAt: startAt },
         { 'movie.slug': slug },
         { day: date },
+        { 'room.name': room },
       ],
     }).lean();
     const callMovie = Movie.findOne({ slug: slug });
@@ -48,16 +50,37 @@ class bookingController {
       ticked: callTicked,
     });
   }
+  async fetchAllTicked(req, res, next) {
+    const month = req.params.month;
+    const callTicked = await Ticked.find({
+      date: { $regex: month + '$' },
+    });
+    res.send({
+      ticked: callTicked,
+    });
+  }
+  async fetchOtherAllTicked(req, res, next) {
+    const month = req.params.month;
+    const callTicked = await Ticked.find({
+      date: { $regex: month + '$' },
+    });
+    res.send({
+      ticked: callTicked,
+    });
+  }
+
   pay(req, res, next) {
     Ticked.updateOne({ _id: req.params.id }, req.body).then(() =>
       res.redirect('/me/stored/tickeds')
     ).catch;
   }
+
   forceDestroy(req, res, next) {
     Ticked.deleteOne({ _id: req.params.id })
       .then(() => res.redirect('back'))
       .catch(next);
   }
+
   success(req, res, next) {
     res.render('booking/success');
   }

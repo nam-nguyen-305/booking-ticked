@@ -18,6 +18,9 @@
         background-color: $primaryColor;
         color: $whiteColor;
         text-align: center;
+        .seat-width {
+            width: 200px;
+        }
     }
     &__item {
         text-align: center;
@@ -31,6 +34,28 @@
 
         &:not(:last-child) {
             border-bottom: $borderDefault;
+        }
+    }
+}
+.ticked-popup-wrapper {
+    margin-top: 30px;
+    .wrapper {
+        margin: 0 auto;
+        padding: 30px;
+        flex-direction: column;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        background: #0f0c29; /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #2a2a35, #07023a, #0f0c29); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #2a2a35, #07023a, #0f0c29);
+        border-radius: 20px;
+
+        .title {
+            padding-bottom: 20px;
+        }
+        img {
+            width: 300px;
         }
     }
 }

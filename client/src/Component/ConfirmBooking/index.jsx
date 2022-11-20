@@ -25,19 +25,19 @@ function BookingConfirm() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const ticked = location.state.ticked
+    const totalPrice = location.state.totalPrice
     const bookingInfo = location.state.bookingInfo
     const auth = JSON.parse(localStorage.getItem("userInfo"));
     const [isLoading, setIsLoading] = useState(false)
-    const { user } = auth
 
     const [editMode, setEditMode] = useState(false)
     const [selectPaymentMethod, setSelectPaymentMethod] = useState(VISA)
     const [listFoodAdded, setListFoodAdded] = useState([])
 
     const [newInfo, setNewInfo] = useState({
-        email: user.email,
-        fullname: user.fullname,
-        phone: user.phone,
+        email: auth.email,
+        fullname: auth.fullname,
+        phone: auth.phone,
     })
     const listFood = useSelector((state) => state.booking.food.data);
 
@@ -63,8 +63,7 @@ function BookingConfirm() {
         foodList = foodList.join(', ')
     }
 
-    let tickedPrice = ticked.length * 50000
-    let total = totalFood ? tickedPrice + totalFood : tickedPrice
+    let total = totalFood ? totalPrice + totalFood : totalPrice
     const handleSelectPaymentMethod = (payment) => {
         setSelectPaymentMethod(payment)
     }
@@ -79,43 +78,34 @@ function BookingConfirm() {
             setListFoodAdded([...listFoodAdded, { foodItem: newFoodItem, quantity: newQuantity, totalFoodPrice: totalFoodPrice }]);
         }
     }
-
+    console.log(totalPrice)
     const formik = useFormik({
         initialValues: {
-            email: user.email,
-            fullname: user.fullname,
-            phone: user.phone,
+            email: auth.email,
+            fullname: auth.fullname,
+            phone: auth.phone,
         },
         validationSchema: Yup.object({
             email:
                 Yup.string()
-                    .required("Required")
-                    .matches(regex_email, "Please enter a valid email address"),
+                    .required("Vui lòng nhập Email")
+                    .matches(regex_email, "Email không hợp lệ!"),
             fullname:
                 Yup.string()
-                    .required("Required")
-                    .matches(regex_name, "Please enter a valid name")
-                    .max(15, "Max length reached"),
+                    .required("Vui lòng nhập họ và tên")
+                    .matches(regex_name, "Họ và tên không hợp lệ")
+                    .max(50, "Max length reached"),
             phone:
                 Yup.string()
-                    .required("Required")
-                    .matches(regex_phone, "Must be a valid phone number"),
+                    .required("Vui lòng nhập Số điện thoại")
+                    .matches(regex_phone, "Không tìm thấy số điện thoại"),
         }),
         onSubmit: () => {
             setNewInfo({ ...formik.values })
             setEditMode(false)
         },
     });
-    const _postTicked = async (payload) => {
-        setIsLoading(true)
-        try {
-            await dispatch(postTicked(payload))
-            navigate(`/booking/${bookingInfo.movie.slug}/successful`)
-        } catch (err) {
-            console.log(err)
-        }
-        setIsLoading(false)
-    }
+
     const submitPayment = () => {
 
         const tickedPayload = {
@@ -124,7 +114,7 @@ function BookingConfirm() {
             time: bookingInfo.movie.time,
             date: bookingInfo.showtime.day,
             startAt: bookingInfo.showtime.startAt,
-            room: bookingInfo.room.name,
+            room: bookingInfo.showtime.room.name,
             listSeat: ticked.join(" "),
             totalSeat: ticked.length,
             food: foodList ? foodList : '',
@@ -138,7 +128,6 @@ function BookingConfirm() {
         navigate('/payment', {
             state: { tickedPayload: tickedPayload, typePayment: selectPaymentMethod, slug: bookingInfo.movie.slug }
         })
-        // _postTicked(tickedPayload)
     }
 
     let backgroundStyle = {
@@ -204,6 +193,7 @@ function BookingConfirm() {
                                         value={formik.values.email}
                                         handleChange={formik.handleChange}
                                         error={formik.errors.email}
+                                        disabled={true}
                                         onClick={() => setEditMode(true)}
 
                                     />
@@ -214,10 +204,10 @@ function BookingConfirm() {
                                         name='phone'
                                         placeholder='Nhập số điện thoại'
                                         value={formik.values.phone}
+                                        disabled={true}
                                         handleChange={formik.handleChange}
                                         error={formik.errors.phone}
                                         onClick={() => setEditMode(true)}
-
                                     />
                                     {editMode &&
                                         <div className="d-flex justify-content-center align-items-center mt-3">
@@ -259,6 +249,12 @@ function BookingConfirm() {
                                     </li>
                                     <li className="d-flex align-items-center justify-content-between">
                                         <h6 className="subtitle">
+                                            Phòng chiếu
+                                        </h6>
+                                        <span>Phòng số {bookingInfo.showtime.room.name}</span>
+                                    </li>
+                                    <li className="d-flex align-items-center justify-content-between">
+                                        <h6 className="subtitle">
                                             Ghế:
                                         </h6>
                                         <span>{ticked.join(", ")}</span>
@@ -289,7 +285,7 @@ function BookingConfirm() {
                                         <h6 className="subtitle">
                                             Tiền vé:
                                         </h6>
-                                        <span>{tickedPrice.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span>
+                                        <span>{totalPrice.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span>
                                     </li>
                                 </ul>
                             </div>

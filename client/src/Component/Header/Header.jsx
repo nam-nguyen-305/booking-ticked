@@ -31,7 +31,7 @@ function Header() {
         navigate("/")
     }
 
-    const menu = auth && auth.user.role === 2 ? (
+    const menu = auth && auth.role === 2 ? (
         <Menu>
             <Menu.Item key="1">
                 <Link to="/profile">Thông tin cá nhân</Link>
@@ -107,7 +107,7 @@ function Header() {
                         auth ?
                             <Dropdown overlay={menu} >
                                 <Link className="ant-dropdown-link header__user-name" to="/profile" >
-                                    {auth.user.fullname}
+                                    {auth.fullname}
                                 </Link>
                             </Dropdown>
                             :

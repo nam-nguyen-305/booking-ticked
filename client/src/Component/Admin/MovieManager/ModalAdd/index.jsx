@@ -4,10 +4,18 @@ import { useSelector, useDispatch } from "react-redux"
 // import Select from 'react-select';
 import { toast } from "react-toastify";
 import { Form } from "react-bootstrap"
+import moment from "moment";
+import "react-dates/initialize";
+import { SingleDatePicker } from "react-dates";
 import { fetchMovies, fetchComingSoonMovies, addMovie } from "../../../../store/slice/MoviesSlice"
+import { MOVIE_STATUS } from "../../../../const/movie-status"
+
 function ModalAdd({ close }) {
     const dispatch = useDispatch()
     const filter = useSelector((state) => state.movies.filter);
+    const [focus, setFocus] = useState(false);
+    const [day, setDay] = useState(null)
+
     const [name, setName] = useState('')
     const [time, setTime] = useState('')
     const [ageLimit, setAgeLimit] = useState('')
@@ -22,6 +30,7 @@ function ModalAdd({ close }) {
     const [banner, setBanner] = useState('')
     const [trailerId, setTrailerId] = useState('')
     const [language, setLanguage] = useState('')
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         await dispatch(addMovie({
@@ -49,6 +58,10 @@ function ModalAdd({ close }) {
         dispatch(fetchComingSoonMovies(filter));
         close()
     }
+    if (releaseDay) {
+        console.log(releaseDay)
+    }
+    console.log(day)
 
     return (
         <>
@@ -90,16 +103,22 @@ function ModalAdd({ close }) {
                             onChange={(e) => setAgeLimit(e.target.value)}
                         />
                     </Form.Group>
-                    <Form.Group className='col-lg-6 form-gr' controlId="releaseDay">
-                        <Form.Label className='form-label'>Ngày khởi chiếu :</Form.Label>
-                        <Form.Control
-                            className='form-input'
-                            type="text"
-                            name="releaseDay"
-                            value={releaseDay}
-                            onChange={(e) => setReleaseDay(e.target.value)}
+                    <div className="col-lg-6 date-picker-wrapper">
+                        <h3>Ngày khởi chiếu</h3>
+                        <SingleDatePicker
+                            date={day}
+                            onDateChange={(day) => {
+                                setDay(day)
+                                setReleaseDay(day.format("DD/MM/YY"))
+                            }}
+                            focused={focus}
+                            onFocusChange={({ focused }) => setFocus(focused)}
+                            numberOfMonths={1}
+                            displayFormat="DD/MM/YY"
+                            showClearDate={true}
+                            isOutsideRange={() => false}
                         />
-                    </Form.Group>
+                    </div>
 
                 </div>
                 <div className="d-flex form-wrapper" >
@@ -141,15 +160,18 @@ function ModalAdd({ close }) {
 
 
                     <Form.Group className='col-lg-6 form-gr' controlId='form-gr'>
-                        <Form.Label className='form-label'>Trạng thái :</Form.Label>
-                        <Form.Control
+                        <Form.Label className='form-label'>Trạng thái</Form.Label>
+                        <Form.Select
                             className='form-input'
-                            type="text"
-                            name="status"
+                            name="daySelected"
                             value={status}
                             onChange={(e) => setStatus(e.target.value)}
-
-                        />
+                        >
+                            <option value="">Chọn trạng thái</option>
+                            {MOVIE_STATUS.map((item) =>
+                                <option value={item.value}>{item.label}</option>
+                            )}
+                        </Form.Select>
                     </Form.Group>
                 </div>
                 <div className="d-flex form-wrapper" >

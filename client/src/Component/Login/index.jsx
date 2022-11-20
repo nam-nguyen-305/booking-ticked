@@ -20,26 +20,29 @@ function Login() {
         validationSchema: Yup.object({
             email:
                 Yup.string()
-                    .required("Required")
-                    .matches(regex_email, "Please enter a valid email address"),
+                    .required("Vui lòng nhập Email")
+                    .matches(regex_email, "Email không đúng định dạng!"),
             password:
                 Yup.string()
-                    .required("Required")
-                    .matches(regex_password, "Password must be 7-19 charactors and contain at least one letter, one number and a special charactors")
+                    .required("Vui lòng nhập mật khẩu")
+            // .matches(regex_password, "Mật khẩu không chính xác!")
         }),
         onSubmit: async (value) => {
             try {
                 const { email, password } = formik.values
-                const data = await dispatch(loginMethod(email, password))
-                if (data) {
-
+                const data = await dispatch(loginMethod({ email, password }))
+                if (data.payload.user) {
                     const info = data.payload
-                    localStorage.setItem("userInfo", JSON.stringify(info))
+                    const { fullname, email, phone, role, age, _id } = info.user
+                    localStorage.setItem("userInfo", JSON.stringify({ fullname: fullname, email: email, phone: phone, age: age, role: role, _id: _id, token: info.token }))
                     const link = info.user.role == 1 ? "/admin" : -1;
                     navigate(link)
+                } else {
+                    alert(data.payload.error)
                 }
-            } catch (err) {
-                return err.message
+            } catch (error) {
+                console.log('Lỗi hệ thống, vui lòng thử lại!')
+                return error
             }
         }
     })
@@ -56,6 +59,8 @@ function Login() {
                             type='email'
                             name='email'
                             placeholder='Nhập email của bạn'
+                            validateOnChange={false}
+                            validateOnBlur={false}
                             value={formik.values.email}
                             handleChange={formik.handleChange}
                             error={formik.errors.email}
@@ -72,7 +77,7 @@ function Login() {
                         />
                         <div className="d-flex justify-content-between align-items-center mt-5">
                             <Link className="signin__link" to="/register">
-                                {'Tạo tài khoản?'}
+                                {'Tạo tài khoản ?'}
                             </Link>
                             <Button type="submit" className="btn_submit btn" size="lg">Đăng nhập</Button>
                         </div>

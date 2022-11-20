@@ -2,13 +2,27 @@
 import React, { useEffect } from 'react';
 import "./style.scss"
 
-export const SeatItem = ({ title, checkChosenSeat, addTicked, listPickingSeat }) => {
-    const checkSeatStatus = checkChosenSeat(title) ? 'booked' : 'free'
-    const checkPickingStatus = listPickingSeat.includes(title) ? "active" : ""
+export const SeatItem = ({ title, checkChosenSeat, addTicked, listPickingSeat, typeOfSeat }) => {
+    const checkSeatStatus = checkChosenSeat(title) ? 'buy' : 'unselect'
+    const checkPickingStatus = listPickingSeat.includes(title)
     return (
-        <div className={`seat-item ${checkSeatStatus} ${checkPickingStatus}`} onClick={() => addTicked(title)}>
-            <img src={require(`../../../statics/image/seat-${checkSeatStatus}.png`)} />
-            <span>{title}</span>
-        </div>
-    );
+        <>
+            {
+                checkPickingStatus ?
+                    <div className={`seat-item ${checkSeatStatus} `} onClick={() => addTicked(title, typeOfSeat)}>
+                        <img src={require(`../../../statics/image/seat-select-${typeOfSeat}.png`)} />
+                        <span>{title}</span>
+                    </div>
+                    :
+                    <div className={`seat-item ${checkSeatStatus} `} onClick={() => addTicked(title, typeOfSeat)}>
+
+                        <img src={require(`../../../statics/image/seat-${checkSeatStatus}-${typeOfSeat}.png`)} />
+                        <span>{title}</span>
+                    </div>
+
+            }
+
+        </>
+    )
+
 }

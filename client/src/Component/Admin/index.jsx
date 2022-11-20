@@ -7,7 +7,9 @@ import MovieManager from './MovieManager';
 import { signOut } from "../../store/slice/UserSlice"
 import UserManager from './UserManager';
 import FoodManager from './FoodManager';
-import { toast, ToastContainer } from "react-toastify";
+import RoomManager from './RoomManager';
+import Chart from './Chart';
+import { ToastContainer } from "react-toastify";
 
 import "./style.scss";
 const { TabPane } = Tabs;
@@ -15,7 +17,7 @@ const { TabPane } = Tabs;
 function Admin() {
     const navigate = useNavigate()
     const auth = JSON.parse(localStorage.getItem('userInfo'));
-    const info = auth.user
+    // const info = auth.user
     const logOut = async () => {
         localStorage.removeItem('userInfo')
         await signOut(auth)
@@ -25,13 +27,13 @@ function Admin() {
     const menu = (
         <Menu>
             <Menu.Item key="1">
-                <Link to="/profile">Profile</Link>
+                <Link to="/profile">Thông tin cá nhân</Link>
             </Menu.Item>
             <Menu.Item key="2">
-                <Link to="/">Home</Link>
+                <Link to="/">Trang chủ</Link>
             </Menu.Item>
             <Menu.Item key="3">
-                <button onClick={logOut}>Log out</button>
+                <button onClick={logOut}>Đăng xuất</button>
             </Menu.Item>
         </Menu>
     );
@@ -48,7 +50,10 @@ function Admin() {
                 <FoodManager />
             </TabPane>
             <TabPane tab="Phòng chiếu" key="4">
-                <FoodManager />
+                <RoomManager />
+            </TabPane>
+            <TabPane tab="Thống kê" key="5">
+                <Chart />
             </TabPane>
         </Tabs>
     );
@@ -60,7 +65,7 @@ function Admin() {
                     <Dropdown overlay={menu}  >
                         <Link className="ant-dropdown-link admin__account" to="/profile" >
                             <span>
-                                {info.fullname}
+                                {auth.fullname}
                             </span>
                         </Link>
                     </Dropdown>

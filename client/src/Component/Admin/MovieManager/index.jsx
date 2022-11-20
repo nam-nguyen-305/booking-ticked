@@ -32,10 +32,10 @@ function MovieManager() {
     const handleDelete = (id) => {
 
         confirm({
-            title: 'Delete this products?',
-            okText: 'Delete',
+            title: 'Bạn muốn xóa phim này?',
+            okText: 'Xóa',
             okType: 'danger',
-            cancelText: 'Cancel',
+            cancelText: 'Hủy',
             async onOk() {
                 await dispatch(deleteMovie(id))
                 dispatch(fetchMovies(filter));

@@ -24,14 +24,13 @@ function FoodManager() {
 
     const handleDelete = (id) => {
         confirm({
-            title: 'Delete this products?',
-            okText: 'Delete',
+            title: 'Xác nhận xóa món ăn này?',
+            okText: 'Xóa',
             okType: 'danger',
-            cancelText: 'Cancel',
+            cancelText: 'Hủy',
             async onOk() {
                 await dispatch(deleteFood(id))
                 dispatch(fetchFood());
-
             },
         });
     }

@@ -27,39 +27,43 @@ function Signup() {
         validationSchema: Yup.object({
             fullname:
                 Yup.string()
-                    .required("Required")
-                    .matches(regex_name, "vui lòng nhập tên hợp lệ")
+                    .required("Vui lòng nhập tên của bạn")
+                    .matches(regex_name, "Hãy nhập tên hợp lệ")
                     .max(50, "Quá giới hạn ký tự"),
             email:
                 Yup.string()
-                    .required("Required")
-                    .matches(regex_email, "Please enter a valid email address"),
+                    .required("Vui lòng nhập Email")
+                    .matches(regex_email, "Email không hợp lệ!"),
             phone:
                 Yup.string()
-                    .required("Required")
-                    .matches(regex_phone, "Must be a valid phone number"),
+                    .required("Vui lòng nhập số điện thoại của bạn!")
+                    .matches(regex_phone, "Số điện thoại không hợp lệ"),
             password:
                 Yup.string()
-                    .required("Required")
-                    .matches(regex_password, "Password must be 7-19 charactors and contain at least one uppercase letter, one lowercase letter and one number"),
+                    .required("Hãy nhập mật khẩu")
+                    .matches(regex_password, "Mật khẩu không hợp lệ"),
             confirmPassword:
                 Yup.string()
-                    .required("Required")
-                    .oneOf([Yup.ref("password"), null], "Password must match")
+                    .required("Hãy nhập mật khẩu")
+                    .oneOf([Yup.ref("password"), null], "Mật khẩu không trùng khớp")
         }),
         onSubmit: async (value) => {
             try {
                 const { fullname, email, password, phone, confirmPassword } = formik.values
                 const newUser = { id: user.uid, fullname, email, phone, password, confirmPassword, gender: 'male', age: 0, role: 2 }
-                dispatch(addUserToDb(newUser))
-                localStorage.setItem('user-info', JSON.stringify({
-                    fullname,
-                    email,
-                    phone
-                }))
-                navigate("/login")
-            } catch (err) {
-                return err.message
+                const data = await dispatch(addUserToDb(newUser))
+                const res = data.payload
+                if (res.hasOwnProperty('token')) {
+                    alert('Đăng ký thành công!')
+                    navigate('/login')
+                }
+                if (res.hasOwnProperty('response')) {
+                    const error = res.response.data.error.keyValue
+                    alert(`${Object.keys(error)} không hợp lệ`)
+                }
+
+            } catch (error) {
+                return error
             }
         }
     });
@@ -121,7 +125,7 @@ function Signup() {
                             error={formik.errors.confirmPassword}
                         />
                         <div className="d-flex justify-content-center align-items-center">
-                            <Button type="submit" className="btn_submit btn text-center" size="lg">Đăng nhập</Button>
+                            <Button type="submit" className="btn_submit btn text-center" size="lg">Đăng ký</Button>
                         </div>
                     </Form>
                 </div>

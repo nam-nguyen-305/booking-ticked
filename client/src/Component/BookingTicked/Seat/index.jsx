@@ -11,11 +11,11 @@ import {
 import { SeatItem } from "./seat-item"
 import "./style.scss"
 
-function Seat({ listChosenSeat, addTicked, listPickingSeat, submitBooking }) {
+function Seat({ listChosenSeat, addTicked, listPickingSeat, submitBooking, totalPrice }) {
     const arraySeat = Array.from({ length: 14 }, (_, i) => i + 1);
     const checkChosenSeat = seat => listChosenSeat.includes(seat)
     const displayListPickingSeat = listPickingSeat.join(", ")
-    let totalPrice = listPickingSeat.length * 50000
+    // let totalPrice = listPickingSeat.length * 50000
     totalPrice = totalPrice.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
     return (
         <section className="seat-wrapper">
@@ -26,7 +26,7 @@ function Seat({ listChosenSeat, addTicked, listPickingSeat, submitBooking }) {
                         <div className="d-flex justify-content-center">
                             {arraySeat.map(item =>
                             (
-                                <SeatItem title={`H${item}`} checkChosenSeat={checkChosenSeat} addTicked={addTicked} listPickingSeat={listPickingSeat} />
+                                <SeatItem title={`H${item}`} checkChosenSeat={checkChosenSeat} addTicked={addTicked} listPickingSeat={listPickingSeat} typeOfSeat={'normal'} />
                             )
                             )}
                         </div>
@@ -37,7 +37,7 @@ function Seat({ listChosenSeat, addTicked, listPickingSeat, submitBooking }) {
                         <div className="d-flex justify-content-center">
                             {arraySeat.map(item =>
                             (
-                                <SeatItem title={`G${item}`} checkChosenSeat={checkChosenSeat} addTicked={addTicked} listPickingSeat={listPickingSeat} />
+                                <SeatItem title={`G${item}`} checkChosenSeat={checkChosenSeat} addTicked={addTicked} listPickingSeat={listPickingSeat} typeOfSeat={'normal'} />
                             )
                             )}
                         </div>
@@ -48,7 +48,7 @@ function Seat({ listChosenSeat, addTicked, listPickingSeat, submitBooking }) {
                         <div className="d-flex justify-content-center">
                             {arraySeat.map(item =>
                             (
-                                <SeatItem title={`F${item}`} checkChosenSeat={checkChosenSeat} addTicked={addTicked} listPickingSeat={listPickingSeat} />
+                                <SeatItem title={`F${item}`} checkChosenSeat={checkChosenSeat} addTicked={addTicked} listPickingSeat={listPickingSeat} typeOfSeat={'normal'} />
                             )
                             )}
                         </div>
@@ -59,7 +59,7 @@ function Seat({ listChosenSeat, addTicked, listPickingSeat, submitBooking }) {
                         <div className="d-flex justify-content-center">
                             {arraySeat.map(item =>
                             (
-                                <SeatItem title={`E${item}`} checkChosenSeat={checkChosenSeat} addTicked={addTicked} listPickingSeat={listPickingSeat} />
+                                <SeatItem title={`E${item}`} checkChosenSeat={checkChosenSeat} addTicked={addTicked} listPickingSeat={listPickingSeat} typeOfSeat={'normal'} />
                             )
                             )}
                         </div>
@@ -70,7 +70,7 @@ function Seat({ listChosenSeat, addTicked, listPickingSeat, submitBooking }) {
                         <div className="d-flex justify-content-center">
                             {arraySeat.map(item =>
                             (
-                                <SeatItem title={`D${item}`} checkChosenSeat={checkChosenSeat} addTicked={addTicked} listPickingSeat={listPickingSeat} />
+                                <SeatItem title={`D${item}`} checkChosenSeat={checkChosenSeat} addTicked={addTicked} listPickingSeat={listPickingSeat} typeOfSeat={'vip'} />
                             )
                             )}
                         </div>
@@ -81,7 +81,7 @@ function Seat({ listChosenSeat, addTicked, listPickingSeat, submitBooking }) {
                         <div className="d-flex justify-content-center">
                             {arraySeat.map(item =>
                             (
-                                <SeatItem title={`C${item}`} checkChosenSeat={checkChosenSeat} addTicked={addTicked} listPickingSeat={listPickingSeat} />
+                                <SeatItem title={`C${item}`} checkChosenSeat={checkChosenSeat} addTicked={addTicked} listPickingSeat={listPickingSeat} typeOfSeat={'vip'} />
                             )
                             )}
                         </div>
@@ -92,7 +92,7 @@ function Seat({ listChosenSeat, addTicked, listPickingSeat, submitBooking }) {
                         <div className="d-flex justify-content-center">
                             {arraySeat.map(item =>
                             (
-                                <SeatItem title={`B${item}`} checkChosenSeat={checkChosenSeat} addTicked={addTicked} listPickingSeat={listPickingSeat} />
+                                <SeatItem title={`B${item}`} checkChosenSeat={checkChosenSeat} addTicked={addTicked} listPickingSeat={listPickingSeat} typeOfSeat={'vip'} />
                             )
                             )}
                         </div>
@@ -103,7 +103,7 @@ function Seat({ listChosenSeat, addTicked, listPickingSeat, submitBooking }) {
                         <div className="d-flex justify-content-center">
                             {arraySeat.map(item =>
                             (
-                                <SeatItem title={`A${item}`} checkChosenSeat={checkChosenSeat} addTicked={addTicked} listPickingSeat={listPickingSeat} />
+                                <SeatItem title={`A${item}`} checkChosenSeat={checkChosenSeat} addTicked={addTicked} listPickingSeat={listPickingSeat} typeOfSeat={'vip'} />
                             )
                             )}
                         </div>

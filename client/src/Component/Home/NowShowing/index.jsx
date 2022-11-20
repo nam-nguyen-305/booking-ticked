@@ -17,10 +17,6 @@ function NowShowing({ movies }) {
                         <div className="movie-list__main">
                             <div className="movie-list__header">
                                 <h2 className="title">Đang chiếu</h2>
-                                <Link to="/">
-                                    Xem thêm
-                                    <FontAwesomeIcon icon={faArrowRight} />
-                                </Link>
                             </div>
                             <div className="movie-list__list">
                                 {movies && movies.map(movie => (

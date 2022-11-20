@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 import 'antd/dist/antd.css';
+import 'react-dates/lib/css/_datepicker.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import './style/_global.scss';

@@ -59,6 +59,12 @@
 .special {
     width: 130px !important;
     padding: 15px !important;
+    position: relative;
+    transition: all 0.3s;
+    &:hover .delete-btn {
+        display: inline-block;
+        opacity: 0.4;
+    }
 }
 
 .type-movie {
@@ -82,4 +88,22 @@
 }
 .room-default {
     height: 62px;
+}
+.delete-btn {
+    position: absolute;
+    top: 32%;
+    right: 40%;
+    z-index: 1000;
+    background: #000;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: none;
+
+    svg {
+        color: #fff;
+    }
+    &:hover {
+        background: rgb(220, 15, 15);
+    }
 }

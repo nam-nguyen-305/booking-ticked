@@ -6,6 +6,8 @@ const initialState = {
   bookingInfo: {},
   food: [],
   listTicked: [],
+  allTicked: [],
+  otherAllTicked: [],
 };
 
 //Get all products
@@ -73,6 +75,38 @@ export const fetchListTicked = createAsyncThunk(
     }
   }
 );
+
+//Get all products
+export const fetchAllTicked = createAsyncThunk(
+  'booking/fetchAllTicked',
+  async (month) => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_DATA}/booking/get-all-ticked/${month}`
+      );
+      const data = res.data;
+      return { data };
+    } catch (err) {
+      return err;
+    }
+  }
+);
+
+export const fetchOtherAllTicked = createAsyncThunk(
+  'booking/fetchOtherAllTicked',
+  async (month) => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_DATA}/booking/get-other-all-ticked/${month}`
+      );
+      const data = res.data;
+      return { data };
+    } catch (err) {
+      return err;
+    }
+  }
+);
+
 export const BookingSlice = createSlice({
   name: 'booking',
   initialState,
@@ -98,6 +132,28 @@ export const BookingSlice = createSlice({
         state.food = action.payload;
       })
       .addCase(fetchFood.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+
+      .addCase(fetchAllTicked.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchAllTicked.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.allTicked = action.payload;
+      })
+      .addCase(fetchAllTicked.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+
+      .addCase(fetchOtherAllTicked.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchOtherAllTicked.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.otherAllTicked = action.payload;
+      })
+      .addCase(fetchOtherAllTicked.rejected, (state, action) => {
         state.isLoading = false;
       })
 

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+const userInfoo = JSON.parse(localStorage.getItem('userInfo'));
 const initialState = {
   userInfo: {},
   isLoading: false,
@@ -16,15 +16,15 @@ export const addUserToDb = createAsyncThunk(
         user
       );
       return res.data;
-    } catch (err) {
-      return err;
+    } catch (error) {
+      return error;
     }
   }
 );
 
 export const loginMethod = createAsyncThunk(
   'user/post',
-  async (email, password) => {
+  async ({ email, password }) => {
     try {
       const res = await axios.post(
         `${process.env.REACT_APP_DATA}/login`,
@@ -35,7 +35,7 @@ export const loginMethod = createAsyncThunk(
       );
       return res.data;
     } catch (err) {
-      return err;
+      console.log(err);
     }
   }
 );
@@ -53,19 +53,6 @@ export const signOut = createAsyncThunk('user/post', async (auth) => {
     return err;
   }
 });
-
-// export const getOrderFromDbJson = createAsyncThunk(
-//     'order/get',
-//     async (email) => {
-//         try {
-//             const res = await axios.get(`${process.env.REACT_APP_DATA}/order?email=${email}`)
-//             return res.data
-//         }
-//         catch (err) {
-//             return err
-//         }
-//     }
-// )
 
 export const updateUser = createAsyncThunk(
   'user/update',
@@ -105,20 +92,16 @@ export const UserSlice = createSlice({
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        const { fullname, email, phone } = action.payload;
-        const userFromLocal = userInfo.user;
-        const token = userInfo.token;
+        const { fullname, email, phone, age } = action.payload;
+        const userFromLocal = userInfoo;
         const newUser = {
           ...userFromLocal,
           fullname: fullname,
           email: email,
           phone: phone,
+          age: age,
         };
-        console.log(JSON.stringify({ token, user: newUser }));
-        localStorage.setItem(
-          'userInfo',
-          JSON.stringify({ token, user: newUser })
-        );
+        localStorage.setItem('userInfo', JSON.stringify(newUser));
       })
       .addCase(updateUser.rejected, (state, action) => {
         state.isLoading = false;

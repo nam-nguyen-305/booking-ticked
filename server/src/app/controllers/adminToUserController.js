@@ -1,6 +1,6 @@
-const Register = require("../models/registers");
+const Register = require('../models/registers');
 
-const { mongooseToObject } = require("../../util/mongoose");
+const { mongooseToObject } = require('../../util/mongoose');
 
 class UserController {
   index(req, res, next) {
@@ -14,19 +14,19 @@ class UserController {
   }
   destroy(req, res, next) {
     Register.delete({ _id: req.params.id })
-      .then(() => res.redirect("back"))
+      .then(() => res.redirect('back'))
       .catch(next);
   }
-  //[DELETE] /courses/:id/force
+  //[DELETE] /  /:id/force
   forceDestroy(req, res, next) {
     Register.deleteOne({ _id: req.params.id })
-      .then(() => res.redirect("back"))
+      .then(() => res.redirect('back'))
       .catch(next);
   }
   //[PATCH] /movie/:id/restore
   restore(req, res, next) {
     Register.restore({ _id: req.params.id })
-      .then(() => res.redirect("back"))
+      .then(() => res.redirect('back'))
       .catch(next);
   }
 }

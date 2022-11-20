@@ -9,7 +9,12 @@ class showtimeController {
       .then((showtime) => res.send({ showtime: showtime }))
       .catch(next);
   }
-  //[GET] /courses/create
+  fetchListShowtime(req, res, next) {
+    Showtime.find({})
+      .then((showtime) => res.send({ showtime: showtime }))
+      .catch(next);
+  }
+  //[GET] /  /create
   create(req, res, next) {
     Movie.find({})
       .lean()
@@ -21,7 +26,7 @@ class showtimeController {
           });
       });
   }
-  //[POST] /courses/create
+  //[POST] /  /create
   store(req, res, next) {
     const movieId = Movie.findOne({ _id: req.body.movieId }).lean();
     const roomId = Room.findOne({ _id: req.body.roomId }).lean();
@@ -67,10 +72,10 @@ class showtimeController {
   }
   destroy(req, res, next) {
     Showtime.delete({ _id: req.params.id })
-      .then(() => res.redirect('back'))
+      .then(() => res.send('back'))
       .catch(next);
   }
-  //[DELETE] /courses/:id/force
+  //[DELETE] /  /:id/force
   forceDestroy(req, res, next) {
     Showtime.deleteOne({ _id: req.params.id })
       .then(() => res.redirect('back'))

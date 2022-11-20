@@ -12,10 +12,10 @@ function Showtime({ day, showtime }) {
             {listShowtime.map((item, index) => (
                 <div key={index} onClick={() =>
                     navigate(`/booking/${item.movie.slug}`, {
-                        state: { slug: item.movie.slug, startAt: item.startAt, day: day }
+                        state: { slug: item.movie.slug, startAt: item.startAt, day: day, room: item.room.name }
                     },
                     )
-                } className="showtime-list_item">{item.startAt}</div>
+                } className="showtime-list_item">{item.startAt} - P{item.room.name} </div>
             ))}
         </div>
     );

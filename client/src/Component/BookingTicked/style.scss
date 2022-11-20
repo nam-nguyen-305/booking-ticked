@@ -191,3 +191,17 @@
         }
     }
 }
+
+.seat-notice-wrapper {
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+}
+.seat-notice {
+    padding: 20px;
+    img {
+        width: 70px;
+        height: 70px;
+        margin-right: 10px;
+    }
+}

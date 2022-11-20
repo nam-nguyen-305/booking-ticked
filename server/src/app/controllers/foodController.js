@@ -9,11 +9,11 @@ class foodController {
       })
       .catch(next);
   }
-  //[GET] /courses/create
+  //[GET] /  /create
   create(req, res, next) {
     res.render('food/createFood');
   }
-  //[POST] /courses/create
+  //[POST] /  /create
   store(req, res, next) {
     const food = new Food(req.body);
     food
@@ -41,7 +41,7 @@ class foodController {
       .then(() => res.send('delete success'))
       .catch(next);
   }
-  //[DELETE] /courses/:id/force
+  //[DELETE] /  /:id/force
   forceDestroy(req, res, next) {
     Food.deleteOne({ _id: req.params.id })
       .then(() => res.redirect('back'))

@@ -8,12 +8,16 @@ router.get('/create', showtimeController.create);
 router.post('/store', showtimeController.store);
 router.get('/:id/edit', showtimeController.edit);
 router.put('/:id', showtimeController.update);
-router.delete('/:id', showtimeController.destroy);
+router.delete('/delete/:id', showtimeController.destroy);
 router.delete('/:id/force', showtimeController.forceDestroy);
 router.patch('/:id/restore', showtimeController.restore);
 router.get(
   '/list-showtime/:slug',
   showtimeController.fetchListShowtimeByMovie
+);
+router.get(
+  '/list-all-showtime',
+  showtimeController.fetchListShowtime
 );
 
 module.exports = router;

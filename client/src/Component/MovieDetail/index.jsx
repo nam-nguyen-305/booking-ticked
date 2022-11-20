@@ -1,9 +1,9 @@
 import { Tabs } from 'antd';
 import React, { useEffect } from 'react';
-import { useLocation, useHistory, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux"
 import { Container } from "react-bootstrap";
-
+import { dayOfWeek } from '../../const/day-of-week'
 import { fetchMovieDetail } from "../../store/slice/MoviesSlice"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -19,16 +19,12 @@ function MovieDetail() {
     const params = useParams()
     const dispatch = useDispatch();
     const movieDetail = useSelector((state) => state.movies.movieDetail);
-    const room = useSelector((state) => state.movies.room);
     const showtime = useSelector((state) => state.movies.showtime);
 
-    const listDay = showtime.map(item => item.day)
-    const newListDay = listDay.reduce((unique, item) =>
-        unique.includes(item) ? unique : [...unique, item], []);
     const TabUi = () => (
         <Tabs defaultActiveKey="1">
             {
-                newListDay.map((item, index) => (
+                dayOfWeek(7).map((item, index) => (
                     <TabPane tab={item} key={index}>
                         <Showtime day={item} showtime={showtime} />
                     </TabPane>
@@ -36,6 +32,7 @@ function MovieDetail() {
             }
         </Tabs>
     );
+
     useEffect(() => {
         const { slug } = params
         if (slug) {

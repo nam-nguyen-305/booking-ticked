@@ -1,14 +1,18 @@
 import React from 'react';
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux"
-// import Select from 'react-select';
 import { Form } from "react-bootstrap"
+import moment from "moment";
+import "react-dates/initialize";
+import { SingleDatePicker } from "react-dates";
 import { updateMovie, fetchMovies, fetchComingSoonMovies, } from "../../../../store/slice/MoviesSlice"
 import { toast } from "react-toastify";
+import { MOVIE_STATUS } from "../../../../const/movie-status"
 
 function EditMovie({ movie }) {
     const dispatch = useDispatch()
     const filter = useSelector((state) => state.movies.filter);
+    const [day, setDay] = useState(null)
 
     const [name, setName] = useState(movie.name)
     const [time, setTime] = useState(movie.time)
@@ -24,10 +28,10 @@ function EditMovie({ movie }) {
     const [banner, setBanner] = useState(movie.banner)
     const [trailerId, setTrailerId] = useState(movie.trailerId)
     const [language, setLanguage] = useState(movie.language)
-
-
+    const [focus, setFocus] = useState(false);
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         const newMovie = {
             name: name,
             time: time,
@@ -57,7 +61,7 @@ function EditMovie({ movie }) {
 
     return (
         <>
-            <h1 className="admin__form-title">Sửa thông tin phim</h1>
+            <h1 className="admin__form-title">{movie.name} ({movie.releaseDay})</h1>
             <Form className="form-modal-admin">
                 <div className="d-flex form-wrapper">
 
@@ -95,16 +99,22 @@ function EditMovie({ movie }) {
                             onChange={(e) => setAgeLimit(e.target.value)}
                         />
                     </Form.Group>
-                    <Form.Group className='col-lg-6 form-gr' controlId="releaseDay">
-                        <Form.Label className='form-label'>Ngày khởi chiếu :</Form.Label>
-                        <Form.Control
-                            className='form-input'
-                            type="text"
-                            name="releaseDay"
-                            value={releaseDay}
-                            onChange={(e) => setReleaseDay(e.target.value)}
+                    <div className="col-lg-6 date-picker-wrapper">
+                        <h3>Ngày khởi chiếu</h3>
+                        <SingleDatePicker
+                            date={day} // momentPropTypes.momentObj or null
+                            onDateChange={(day) => {
+                                setDay(day)
+                                setReleaseDay(day.format("DD/MM/YY"))
+                            }} // PropTypes.func.isRequired
+                            focused={focus} // PropTypes.bool
+                            onFocusChange={({ focused }) => setFocus(focused)} // PropTypes.func.isRequired
+                            numberOfMonths={1}
+                            displayFormat="DD/MM/YY"
+                            showClearDate={true}
+                            isOutsideRange={() => false}
                         />
-                    </Form.Group>
+                    </div>
 
                 </div>
                 <div className="d-flex form-wrapper">
@@ -146,15 +156,17 @@ function EditMovie({ movie }) {
 
 
                     <Form.Group className='col-lg-6 form-gr' controlId='form-gr'>
-                        <Form.Label className='form-label'>Trạng thái :</Form.Label>
-                        <Form.Control
+                        <Form.Label className='form-label'>Trạng thái</Form.Label>
+                        <Form.Select
                             className='form-input'
-                            type="text"
-                            name="status"
+                            name="daySelected"
                             value={status}
                             onChange={(e) => setStatus(e.target.value)}
-
-                        />
+                        >
+                            {MOVIE_STATUS.map((item) =>
+                                <option value={item.value}>{item.label}</option>
+                            )}
+                        </Form.Select>
                     </Form.Group>
                 </div>
                 <div className="d-flex form-wrapper">

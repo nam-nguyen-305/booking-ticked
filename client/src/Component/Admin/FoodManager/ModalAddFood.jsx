@@ -24,7 +24,7 @@ function ModalAddFood({ close }) {
             count: parseInt(count),
         }
         await dispatch(addFood(newFood))
-        toast.success("Đã cập nhật thông tin phim!", {
+        toast.success("Đã cập nhật thông tin món ăn!", {
             position: "top-right",
             autoClose: 2500,
         });

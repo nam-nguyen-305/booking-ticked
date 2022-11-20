@@ -10,13 +10,13 @@ import {
     faEdit,
     faCircleXmark
 } from "@fortawesome/free-solid-svg-icons";
-import { regex_email, regex_phone, regex_name } from '../../const/regex'
+import { regex_email, regex_phone, regex_name, regex_age } from '../../const/regex'
 import { updateUser } from "../../store/slice/UserSlice"
 import "./style.scss"
 function Profile() {
 
     const auth = JSON.parse(localStorage.getItem('userInfo'))
-    const { _id, email, fullname, phone } = auth.user
+    const { _id, email, fullname, phone, age, role } = auth
     const [isOpenEdit, setIsOpenEdit] = useState(false)
     const dispatch = useDispatch()
     const handleEdit = () => {
@@ -28,21 +28,26 @@ function Profile() {
             fullname: fullname,
             email: email,
             phone: phone,
+            age: age
         },
         validationSchema: Yup.object({
             fullname:
                 Yup.string()
-                    .required("Required")
-                    .matches(regex_name, "Please enter a valid name")
-                    .max(50, "Max length reached"),
+                    .required("Không bỏ trống trường này")
+                    .matches(regex_name, "Hãy điền tên hợp lệ!")
+                    .max(50, "Ký tự quá giới hạn!"),
             email:
                 Yup.string()
-                    .required("Required")
-                    .matches(regex_email, "Please enter a valid email address"),
+                    .required("Không bỏ trống trường này")
+                    .matches(regex_email, "Email không hợp lệ!"),
             phone:
                 Yup.string()
-                    .required("Required")
-                    .matches(regex_phone, "Must be a valid phone number"),
+                    .required("Không bỏ trống trường này")
+                    .matches(regex_phone, "Số điện thoại không hợp lệ!"),
+            age:
+                Yup.string()
+                    .required("Không bỏ trống trường này")
+                    .matches(regex_age, "Tuổi không hợp lệ!"),
         }),
         onSubmit: async (value) => {
             try {
@@ -81,6 +86,7 @@ function Profile() {
                             name='email'
                             placeholder='Nhập email của bạn'
                             value={formik.values.email}
+                            disabled={true}
                             handleChange={formik.handleChange}
                             error={formik.errors.email}
                         />
@@ -93,6 +99,16 @@ function Profile() {
                             value={formik.values.phone}
                             handleChange={formik.handleChange}
                             error={formik.errors.phone}
+                        />
+                        <FormGroup
+                            label='Tuổi'
+                            id='age'
+                            type='text'
+                            name='age'
+                            placeholder='Nhập tuổi'
+                            value={formik.values.age}
+                            handleChange={formik.handleChange}
+                            error={formik.errors.age}
                         />
                         <div className="d-flex justify-content-center align-items-center">
                             <Button variant="outline-primary" type="submit" className="btn_view-more btn text-center" size="lg">Hoàn tất</Button>
@@ -113,6 +129,10 @@ function Profile() {
                         <div className="d-flex">
                             <h2 className="info__sub">Phone:</h2>
                             <span className="info_value">{phone}</span>
+                        </div>
+                        <div className="d-flex">
+                            <h2 className="info__sub">Tuổi:</h2>
+                            <span className="info_value">{age}</span>
                         </div>
                     </div>
                 </>
